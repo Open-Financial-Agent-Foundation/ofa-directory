@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Lassie", "identifier": "lassie.co", "documentationUrl": "https://lassie.co" },
+  "entries": [
+    {
+      "identifier": "urn:air:lassie.co:agent:pet-insurance",
+      "displayName": "Lassie pet insurance",
+      "type": "application/mcp-server-card+json",
+      "url": "https://v1.lassie.mcp.waniwani.run/mcp",
+      "description": "Quotes Lassie pet insurance for dogs and cats and answers questions about coverage, waiting periods, plans, pricing and cancellation.",
+      "tags": ["insurance", "pet", "quote", "faq"],
+      "capabilities": ["lassie-quote", "faq", "show-pricing", "show-pet-summary"],
+      "representativeQueries": [
+        "insure my dog with Lassie",
+        "how much is pet insurance for a 3 year old cat",
+        "what is the waiting period on Lassie plans",
+        "cancel my pet insurance"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["pet"], "fc:actions": ["quote", "faq"],
+      "fc:country": ["SE"], "fc:languages": ["en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

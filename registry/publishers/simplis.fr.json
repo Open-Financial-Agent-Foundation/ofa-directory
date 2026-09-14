@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Simplis", "identifier": "simplis.fr", "documentationUrl": "https://www.simplis.fr" },
+  "entries": [
+    {
+      "identifier": "urn:air:simplis.fr:agent:rc-pro",
+      "displayName": "Simplis RC Pro",
+      "type": "application/mcp-server-card+json",
+      "url": "https://simplis.vercel.app/mcp",
+      "description": "Devis d'assurance responsabilité civile professionnelle pour les professionnels français, quel que soit le statut juridique: tarif mensuel et annuel officiel Simplis, demande de rappel par un conseiller.",
+      "tags": ["insurance", "professional-liability", "rc-pro", "france", "auto-entrepreneur"],
+      "capabilities": ["rc_pro_quote", "price_estimate", "quote_summary", "callback_request"],
+      "representativeQueries": [
+        "combien coûte une RC Pro pour un auto-entrepreneur plombier",
+        "devis assurance responsabilité civile professionnelle",
+        "je suis consultant freelance, quelle assurance pro me faut-il",
+        "être rappelé par un conseiller Simplis"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["professional-liability"], "fc:actions": ["quote", "callback"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

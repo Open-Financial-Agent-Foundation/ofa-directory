@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Fintonic", "identifier": "fintonic.com", "documentationUrl": "https://www.fintonic.com" },
+  "entries": [
+    {
+      "identifier": "urn:air:fintonic.com:agent:personal-loan",
+      "displayName": "Fintonic personal loans",
+      "type": "application/mcp-server-card+json",
+      "url": "https://fintonic.vercel.app/mcp",
+      "description": "Quotes a Fintonic personal loan in Spain from amount, duration and the user's FinScore profile (ASNEF, employment, income, housing, other loans), and explains how Fintonic, FinScore and open banking work.",
+      "tags": ["lending", "personal-loan", "spain", "fintech", "simulation"],
+      "capabilities": ["loan", "explain_fintonic", "simulation_result"],
+      "representativeQueries": [
+        "préstamo personal de 5000 euros a 24 meses",
+        "simulate a personal loan in Spain",
+        "¿qué es el FinScore de Fintonic?",
+        "can I get a loan if I am in ASNEF"
+      ],
+      "fc:sector": ["lending"], "fc:lineOfBusiness": ["personal-loan"], "fc:role": ["fintech"], "fc:actions": ["quote", "simulate", "faq"],
+      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

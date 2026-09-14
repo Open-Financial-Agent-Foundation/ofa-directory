@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "CAP Insurance Group", "identifier": "cap-insurance-group.vercel.app" },
+  "entries": [
+    {
+      "identifier": "urn:air:cap-insurance-group.vercel.app:agent:insurance",
+      "displayName": "CAP Insurance Group",
+      "type": "application/mcp-server-card+json",
+      "url": "https://cap-insurance-group.vercel.app/mcp",
+      "description": "Answers coverage and policy questions from CAP Insurance's knowledge base and captures quote requests across Home, Auto, Business, Boat, Jewelry, Life and Umbrella lines.",
+      "tags": ["insurance", "agency", "home", "auto", "business", "life", "umbrella", "quote", "faq"],
+      "capabilities": ["faq", "intake", "lead-summary"],
+      "representativeQueries": [
+        "get a quote for home and auto insurance",
+        "do you cover jewelry",
+        "I need an umbrella policy",
+        "business insurance for a small contractor"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home", "auto", "business", "boat", "jewelry", "life", "umbrella"], "fc:actions": ["quote", "faq"],
+      "fc:country": ["US"], "fc:languages": ["en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

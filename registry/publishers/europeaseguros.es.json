@@ -1,0 +1,23 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Europea Seguros", "identifier": "europeaseguros.es", "documentationUrl": "https://www.europeaseguros.es" },
+  "entries": [
+    {
+      "identifier": "urn:air:europeaseguros.es:agent:decesos",
+      "displayName": "Europea Seguros decesos",
+      "type": "application/mcp-server-card+json",
+      "url": "https://europea-seguros.vercel.app/mcp",
+      "description": "Cotiza un seguro de decesos de Europea Seguros para el usuario o un familiar y responde preguntas frecuentes sobre el producto.",
+      "tags": ["insurance", "funeral", "decesos", "spain", "quote", "faq"],
+      "capabilities": ["quote", "faq", "show_quote_result"],
+      "representativeQueries": [
+        "seguro de decesos para mis padres",
+        "¿cuánto cuesta un seguro de decesos a los 60 años?",
+        "funeral insurance quote in Spain"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["funeral"], "fc:role": ["carrier"], "fc:actions": ["quote", "faq"],
+      "fc:country": ["ES"], "fc:languages": ["es"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

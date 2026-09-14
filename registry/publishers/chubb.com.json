@@ -1,0 +1,23 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Chubb", "identifier": "chubb.com", "documentationUrl": "https://www.chubb.com" },
+  "entries": [
+    {
+      "identifier": "urn:air:chubb.com:agent:travel-insurance",
+      "displayName": "Chubb travel insurance",
+      "type": "application/mcp-server-card+json",
+      "url": "https://chubb-mcp.vercel.app/mcp",
+      "description": "Quotes Chubb travel insurance for an upcoming trip. Eligibility follows the traveller's country of residence; residents of countries without a live quote are handed to Chubb's local site with the trip prefilled.",
+      "tags": ["insurance", "travel", "carrier", "quote"],
+      "capabilities": ["travel_insurance_quote", "travel-quote-options"],
+      "representativeQueries": [
+        "travel insurance for two weeks in Japan",
+        "does Chubb cover trip cancellation",
+        "get a travel insurance quote for a family trip"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["travel"], "fc:role": ["carrier"], "fc:actions": ["quote"],
+      "fc:languages": ["en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

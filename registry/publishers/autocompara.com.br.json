@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Autocompara (Santander Brasil)", "identifier": "autocompara.com.br", "documentationUrl": "https://www.autocompara.com.br" },
+  "entries": [
+    {
+      "identifier": "urn:air:autocompara.com.br:agent:seguro-auto",
+      "displayName": "Autocompara seguro auto",
+      "type": "application/mcp-server-card+json",
+      "url": "https://autocompara-nu.vercel.app/mcp",
+      "description": "Cotação de seguro auto no Autocompara (Santander Brasil): coleta veículo, endereço, uso e dados do segurado, roda a cotação e mostra as ofertas. Responde dúvidas a partir da base de conhecimento.",
+      "tags": ["insurance", "auto", "brazil", "comparator", "quote"],
+      "capabilities": ["cotar_seguro_auto", "search", "show-offers", "review-quote", "select-version"],
+      "representativeQueries": [
+        "cotar seguro do meu carro",
+        "quanto custa seguro auto para um Onix 2021 em São Paulo",
+        "compare car insurance offers in Brazil",
+        "o que o seguro auto cobre em caso de roubo"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["auto"], "fc:role": ["comparator"], "fc:actions": ["quote", "compare", "faq"],
+      "fc:country": ["BR"], "fc:languages": ["pt-BR", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

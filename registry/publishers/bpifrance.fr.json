@@ -1,0 +1,40 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Bpifrance", "identifier": "bpifrance.fr", "documentationUrl": "https://www.bpifrance.fr" },
+  "entries": [
+    {
+      "identifier": "urn:air:bpifrance.fr:agent:solutions",
+      "displayName": "Bpifrance solutions de financement",
+      "type": "application/mcp-server-card+json",
+      "url": "https://bpi-amber.vercel.app/mcp",
+      "description": "Oriente les entrepreneurs vers les solutions Bpifrance adaptées à leur situation (création, reprise, international, innovation, assurance export, prêt flash) et répond aux questions d'éligibilité à partir de la base de connaissances.",
+      "tags": ["public-finance", "business-financing", "france", "sme", "export-insurance", "innovation"],
+      "capabilities": ["bpifrance_journey", "ask_bpifrance_question", "flash-loan", "assurance-export", "parcours-international", "parcours-accompagnement", "innovation-jeune", "dossier-redirect"],
+      "representativeQueries": [
+        "quelles aides Bpifrance pour créer ma startup",
+        "prêt flash Bpifrance conditions",
+        "assurance prospection export pour une PME",
+        "financement innovation jeune entreprise"
+      ],
+      "fc:sector": ["public-finance", "lending"], "fc:lineOfBusiness": ["business-financing", "export-insurance"], "fc:role": ["public-body"], "fc:actions": ["search", "apply", "faq"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    },
+    {
+      "identifier": "urn:air:bpifrance.fr:agent:conseil",
+      "displayName": "Bpifrance Conseil",
+      "type": "application/mcp-server-card+json",
+      "url": "https://bpifrance-conseil.vercel.app/mcp",
+      "description": "Oriente les dirigeants de PME et ETI vers les missions de conseil Bpifrance les plus adaptées, avec recherche dans le catalogue des offres.",
+      "tags": ["public-finance", "advisory", "france", "sme"],
+      "capabilities": ["bpifrance_conseil", "search_catalogue", "show_offer_cards", "show_offer_detail"],
+      "representativeQueries": [
+        "mission de conseil Bpifrance pour structurer ma croissance",
+        "accompagnement dirigeant PME transition écologique",
+        "catalogue des offres de conseil Bpifrance"
+      ],
+      "fc:sector": ["public-finance"], "fc:lineOfBusiness": ["advisory"], "fc:role": ["public-body"], "fc:actions": ["search"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

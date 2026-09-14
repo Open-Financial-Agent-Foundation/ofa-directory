@@ -1,0 +1,23 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Offre MRH Jeunes", "identifier": "offre-mrh-jeunes.vercel.app" },
+  "entries": [
+    {
+      "identifier": "urn:air:offre-mrh-jeunes.vercel.app:agent:devis-habitation",
+      "displayName": "Offre MRH Jeunes",
+      "type": "application/mcp-server-card+json",
+      "url": "https://offre-mrh-jeunes.vercel.app/mcp",
+      "description": "Qualifie un profil pour une assurance habitation destinée aux jeunes, restitue le tarif indicatif de l'offre la plus adaptée et répond aux questions sur les garanties.",
+      "tags": ["insurance", "home", "france", "young-adults", "quote", "faq"],
+      "capabilities": ["devis_habitation", "search", "show-devis-mrh", "show-souscription-mrh"],
+      "representativeQueries": [
+        "assurance habitation étudiant pas chère",
+        "devis assurance appartement première location",
+        "que couvre l'assurance habitation en cas de dégât des eaux"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home"], "fc:actions": ["quote", "faq"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "demo", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

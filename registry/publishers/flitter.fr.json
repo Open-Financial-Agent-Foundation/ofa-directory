@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Flitter", "identifier": "flitter.fr", "documentationUrl": "https://www.flitter.fr" },
+  "entries": [
+    {
+      "identifier": "urn:air:flitter.fr:agent:devis-auto",
+      "displayName": "Flitter devis assurance auto",
+      "type": "application/mcp-server-card+json",
+      "url": "https://flitter-murex.vercel.app/mcp",
+      "description": "Devis d'assurance auto en France: identification du véhicule par plaque ou par marque et modèle (codes SRA), calcul du bonus-malus, création du devis et offres par formule (Tiers, Vol & Incendie, Tous Risques).",
+      "tags": ["insurance", "auto", "france", "quote"],
+      "capabilities": ["insurance_quote", "create_quote", "search_license_plate", "vehicle_by_make_model", "list_car_makes", "list_car_models", "get_best_crm", "get_cities", "get_quote_summary"],
+      "representativeQueries": [
+        "devis assurance auto pour ma Clio immatriculée AB-123-CD",
+        "assurance tous risques pas chère jeune conducteur",
+        "quel est mon bonus-malus après 5 ans de permis",
+        "car insurance quote in France"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["auto"], "fc:actions": ["quote"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

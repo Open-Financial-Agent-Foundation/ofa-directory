@@ -1,0 +1,24 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "LegalPlace", "identifier": "legalplace.fr", "documentationUrl": "https://www.legalplace.fr" },
+  "entries": [
+    {
+      "identifier": "urn:air:legalplace.fr:agent:creation-entreprise",
+      "displayName": "LegalPlace création d'entreprise",
+      "type": "application/mcp-server-card+json",
+      "url": "https://legalplace-liart.vercel.app/mcp",
+      "description": "Constitue le dossier de création d'une micro-entreprise, d'une société commerciale (SASU, SAS, EURL, SARL) ou d'une SCI via LegalPlace, et recherche dans les guides LegalPlace. Pas de conseil juridique.",
+      "tags": ["legal", "company-formation", "france", "micro-entreprise", "sasu", "sci"],
+      "capabilities": ["creation_micro_entreprise", "creation_societe", "creation_sci", "search", "fetch"],
+      "representativeQueries": [
+        "créer ma micro-entreprise",
+        "SASU ou EURL pour un freelance",
+        "créer une SCI pour acheter un appartement",
+        "quel capital pour une SAS"
+      ],
+      "fc:sector": ["legal"], "fc:lineOfBusiness": ["company-formation"], "fc:role": ["service-provider"], "fc:actions": ["apply", "search"],
+      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

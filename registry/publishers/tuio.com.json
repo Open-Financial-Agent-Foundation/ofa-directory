@@ -1,0 +1,41 @@
+{
+  "specVersion": "1.0",
+  "@context": { "fc": "https://fincommons.org/ns#" },
+  "host": { "displayName": "Tuio", "identifier": "tuio.com", "documentationUrl": "https://tuio.com" },
+  "entries": [
+    {
+      "identifier": "urn:air:tuio.com:agent:home-insurance",
+      "displayName": "Tuio home insurance",
+      "type": "application/mcp-server-card+json",
+      "url": "https://tuio-mcp.vercel.app/mcp",
+      "description": "Quotes Tuio home insurance for flats and houses in Spain, and answers questions from Tuio's FAQ and its public general terms and conditions.",
+      "tags": ["insurance", "home", "spain", "quote", "faq"],
+      "capabilities": ["get_price_estimate", "search_faq", "search_terms"],
+      "representativeQueries": [
+        "¿Cuánto cuesta asegurar mi piso en Madrid?",
+        "get a home insurance quote for a house in Spain",
+        "what does Tuio cover for water damage",
+        "condiciones generales del seguro de hogar Tuio"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home"], "fc:actions": ["quote", "faq"],
+      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    },
+    {
+      "identifier": "urn:air:tuio.com:agent:pet-care",
+      "displayName": "Tuio pet care",
+      "type": "application/mcp-server-card+json",
+      "url": "https://tuio-pet-care.vercel.app/mcp",
+      "description": "Pet care assistant backed by a 196-article knowledge base: symptoms, first aid, vaccination schedules, nutrition, travel rules, plus pet insurance and liability obligations in Spain under Ley 7/2023.",
+      "tags": ["insurance", "pet", "spain", "faq"],
+      "capabilities": ["pet_chat", "pet_health_search", "pet_insurance_info", "get_memory", "email_capture", "delete_pet_memory"],
+      "representativeQueries": [
+        "¿es obligatorio el seguro de responsabilidad civil para mi perro en España?",
+        "vaccination schedule for a puppy",
+        "my cat is vomiting, what should I do",
+        "pet insurance requirements under Ley 7/2023"
+      ],
+      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["pet"], "fc:actions": ["faq"],
+      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+    }
+  ]
+}

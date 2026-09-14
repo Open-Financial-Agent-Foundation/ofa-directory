@@ -1,0 +1,4 @@
+{
+  "$comment": "Domains whose /.well-known/ai-catalog.json FinCommons crawls (bun run crawl). Add yours in a pull request.",
+  "domains": []
+}
