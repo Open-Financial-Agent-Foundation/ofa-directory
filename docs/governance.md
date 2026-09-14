@@ -1,13 +1,13 @@
 # Governance
 
-FinCommons is an open project. The registry data, the vocabulary and the code are Apache-2.0 and live in one repository. Anyone can read, fork, run their own copy, or propose a change.
+Open Financial Agent is an open project. The registry data, the vocabulary and the code are Apache-2.0 and live in one repository. Anyone can read, fork, run their own copy, or propose a change.
 
 ## Principles
 
 - **The index points, it does not answer.** Every result is an entry that leads to a provider's own endpoint. Product answers come from providers.
 - **Relevance is not trust.** Scores rank fit to a query. Trust comes from domain ownership and, later, verified manifests.
 - **Publisher authority.** An entry belongs to the domain in its URN. Only that domain, or a steward on record, can change it.
-- **Open standard first.** FinCommons follows ARD as published. Where ARD is silent (fetching one entry, finance terms), FinCommons documents its choice and proposes it upstream.
+- **Open standard first.** Open Financial Agent follows ARD as published. Where ARD is silent (fetching one entry, finance terms), Open Financial Agent documents its choice and proposes it upstream.
 - **Neutral listing.** Listing is free, first come first served, and never conditioned on a commercial relationship with a maintainer.
 
 ## Roles

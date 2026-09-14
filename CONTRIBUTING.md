@@ -17,7 +17,7 @@ Entries must carry identifiers under your own domain (`urn:air:<your-domain>:...
 
 ## Vocabulary
 
-Values (a new `fc:lineOfBusiness`) merge by pull request. Terms (a new `fc:*` key) start with an issue titled `vocabulary: <term>`.
+Values (a new `ofa:lineOfBusiness`) merge by pull request. Terms (a new `ofa:*` key) start with an issue titled `vocabulary: <term>`.
 
 ## Conduct
 

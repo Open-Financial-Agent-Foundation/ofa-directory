@@ -8,7 +8,7 @@ export const DOC_PAGES = [
 	{ slug: "mcp", title: "MCP server" },
 	{ slug: "rest-api", title: "REST API" },
 	{ slug: "publish", title: "Publish your catalog" },
-	{ slug: "vocabulary", title: "The fc: vocabulary" },
+	{ slug: "vocabulary", title: "The ofa: vocabulary" },
 	{ slug: "governance", title: "Governance" },
 ] as const;
 

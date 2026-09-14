@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Fintonic", "identifier": "fintonic.com", "documentationUrl": "https://www.fintonic.com" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "¿qué es el FinScore de Fintonic?",
         "can I get a loan if I am in ASNEF"
       ],
-      "fc:sector": ["lending"], "fc:lineOfBusiness": ["personal-loan"], "fc:role": ["fintech"], "fc:actions": ["quote", "simulate", "faq"],
-      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["lending"], "ofa:lineOfBusiness": ["personal-loan"], "ofa:role": ["fintech"], "ofa:actions": ["quote", "simulate", "faq"],
+      "ofa:country": ["ES"], "ofa:languages": ["es", "en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

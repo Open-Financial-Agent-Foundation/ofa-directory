@@ -1,18 +1,18 @@
-# The fc: vocabulary
+# The ofa: vocabulary
 
-ARD lets a registry add terms through JSON-LD namespaces. FinCommons defines one, `https://fincommons.org/ns#`, bound to the prefix `fc` in every catalog file and in every query by default. Any term below is a filter key and a facet.
+ARD lets a registry add terms through JSON-LD namespaces. Open Financial Agent defines one, `https://openfinancialagent.org/ns#`, bound to the prefix `fc` in every catalog file and in every query by default. Any term below is a filter key and a facet.
 
 | Term | Values | Meaning |
 | --- | --- | --- |
-| `fc:sector` | `insurance`, `banking`, `lending`, `payments`, `wealth`, `pensions`, `legal`, `public-finance` | The regulated activity the resource belongs to. |
-| `fc:lineOfBusiness` | free text, lowercase, hyphenated | Product line: `home`, `auto`, `pet`, `travel`, `health`, `life`, `funeral`, `professional-liability`, `personal-loan`, `mortgage`, `business-financing`, `company-formation`… |
-| `fc:role` | `carrier`, `broker`, `comparator`, `mga`, `bank`, `fintech`, `public-body`, `service-provider` | Who the publisher is in the value chain. |
-| `fc:actions` | `quote`, `bind`, `compare`, `faq`, `claim`, `callback`, `simulate`, `apply`, `search` | What an agent can get done through the resource. |
-| `fc:country` | ISO 3166-1 alpha-2, uppercase | Where the product is sold. Omit when the provider sells by residency across many countries. |
-| `fc:languages` | BCP 47 (`fr`, `pt-BR`) | Languages the resource answers in. |
-| `fc:regulator` | free text (`ACPR`, `DGSFP`, `FCA`) | Supervising authority, when the publisher states it. |
-| `fc:hostedBy` | domain | The platform running the endpoint on the publisher's behalf, when it is not the publisher. |
-| `fc:status` | `live`, `demo`, `listing` | `live`: endpoint answered MCP at the last check. `demo`: the publisher marks it a demonstration. `listing`: a directory page with no endpoint of its own. |
+| `ofa:sector` | `insurance`, `banking`, `lending`, `payments`, `wealth`, `pensions`, `legal`, `public-finance` | The regulated activity the resource belongs to. |
+| `ofa:lineOfBusiness` | free text, lowercase, hyphenated | Product line: `home`, `auto`, `pet`, `travel`, `health`, `life`, `funeral`, `professional-liability`, `personal-loan`, `mortgage`, `business-financing`, `company-formation`… |
+| `ofa:role` | `carrier`, `broker`, `comparator`, `mga`, `bank`, `fintech`, `public-body`, `service-provider` | Who the publisher is in the value chain. |
+| `ofa:actions` | `quote`, `bind`, `compare`, `faq`, `claim`, `callback`, `simulate`, `apply`, `search` | What an agent can get done through the resource. |
+| `ofa:country` | ISO 3166-1 alpha-2, uppercase | Where the product is sold. Omit when the provider sells by residency across many countries. |
+| `ofa:languages` | BCP 47 (`fr`, `pt-BR`) | Languages the resource answers in. |
+| `ofa:regulator` | free text (`ACPR`, `DGSFP`, `FCA`) | Supervising authority, when the publisher states it. |
+| `ofa:hostedBy` | domain | The platform running the endpoint on the publisher's behalf, when it is not the publisher. |
+| `ofa:status` | `live`, `demo`, `listing` | `live`: endpoint answered MCP at the last check. `demo`: the publisher marks it a demonstration. `listing`: a directory page with no endpoint of its own. |
 
 ## Actions, defined
 
@@ -31,9 +31,9 @@ ARD lets a registry add terms through JSON-LD namespaces. FinCommons defines one
 Filter keys resolve to IRIs. All of these mean the same thing:
 
 ```json
-{ "query": { "text": "…", "filter": { "fc:country": ["ES"] } } }
-{ "query": { "text": "…", "filter": { "https://fincommons.org/ns#country": ["ES"] } } }
-{ "query": { "@context": { "fin": "https://fincommons.org/ns#" }, "text": "…", "filter": { "fin:country": ["ES"] } } }
+{ "query": { "text": "…", "filter": { "ofa:country": ["ES"] } } }
+{ "query": { "text": "…", "filter": { "https://openfinancialagent.org/ns#country": ["ES"] } } }
+{ "query": { "@context": { "fin": "https://openfinancialagent.org/ns#" }, "text": "…", "filter": { "fin:country": ["ES"] } } }
 ```
 
 ## Proposing a term

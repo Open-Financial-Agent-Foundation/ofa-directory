@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Chubb", "identifier": "chubb.com", "documentationUrl": "https://www.chubb.com" },
   "entries": [
     {
@@ -16,8 +16,8 @@
         "does Chubb cover trip cancellation",
         "get a travel insurance quote for a family trip"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["travel"], "fc:role": ["carrier"], "fc:actions": ["quote"],
-      "fc:languages": ["en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["travel"], "ofa:role": ["carrier"], "ofa:actions": ["quote"],
+      "ofa:languages": ["en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

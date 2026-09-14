@@ -14,7 +14,7 @@ export function SiteHeader() {
 			<div className="max-w-[1040px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-6">
 				<Link href="/" className="flex items-baseline gap-3 no-underline">
 					<span className="font-[family-name:var(--font-display)] font-bold text-[19px] tracking-tight text-ink">
-						Fin<span className="text-accent">Commons</span>
+						Open Financial <span className="text-accent">Agent</span>
 					</span>
 					<span className="label hidden sm:inline">v0 · {SITE.specVersion}</span>
 				</Link>

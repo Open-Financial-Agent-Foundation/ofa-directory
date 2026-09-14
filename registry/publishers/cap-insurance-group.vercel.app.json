@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "CAP Insurance Group", "identifier": "cap-insurance-group.vercel.app" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "I need an umbrella policy",
         "business insurance for a small contractor"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home", "auto", "business", "boat", "jewelry", "life", "umbrella"], "fc:actions": ["quote", "faq"],
-      "fc:country": ["US"], "fc:languages": ["en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["home", "auto", "business", "boat", "jewelry", "life", "umbrella"], "ofa:actions": ["quote", "faq"],
+      "ofa:country": ["US"], "ofa:languages": ["en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

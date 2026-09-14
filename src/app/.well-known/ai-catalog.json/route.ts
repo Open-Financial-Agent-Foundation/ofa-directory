@@ -3,7 +3,7 @@ import { getRegistry } from "@/lib/registry/load";
 import { SITE, siteUrl } from "@/lib/site";
 
 /**
- * FinCommons' own catalog (ARD §5.1). It advertises the registry API and the MCP wrapper so
+ * Open Financial Agent's own catalog (ARD §5.1). It advertises the registry API and the MCP wrapper so
  * other registries can federate to it, and lists the publishers it indexes as nested catalogs.
  */
 export async function GET(request: Request) {
@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 		{
 			"@context": [
 				"https://agenticresourcediscovery.org/context/v1",
-				{ fc: "https://fincommons.org/ns#" },
+				{ ofa: "https://openfinancialagent.org/ns#" },
 			],
 			specVersion: "1.0",
 			host: {
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
 			entries: [
 				{
 					identifier: `urn:air:${host}:registry:financial-services`,
-					displayName: "FinCommons registry",
+					displayName: "Open Financial Agent registry",
 					type: "application/ai-registry+json",
 					url: `${base}/api/v1`,
 					description:
@@ -44,7 +44,7 @@ export async function GET(request: Request) {
 				},
 				{
 					identifier: `urn:air:${host}:server:mcp`,
-					displayName: "FinCommons MCP",
+					displayName: "Open Financial Agent MCP",
 					type: "application/mcp-server-card+json",
 					url: `${base}/mcp`,
 					description:

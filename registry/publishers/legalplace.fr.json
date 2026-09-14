@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "LegalPlace", "identifier": "legalplace.fr", "documentationUrl": "https://www.legalplace.fr" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "créer une SCI pour acheter un appartement",
         "quel capital pour une SAS"
       ],
-      "fc:sector": ["legal"], "fc:lineOfBusiness": ["company-formation"], "fc:role": ["service-provider"], "fc:actions": ["apply", "search"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["legal"], "ofa:lineOfBusiness": ["company-formation"], "ofa:role": ["service-provider"], "ofa:actions": ["apply", "search"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

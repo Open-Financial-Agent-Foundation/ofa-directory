@@ -17,9 +17,9 @@ export function siteUrl(request?: Request): string {
 }
 
 export const SITE = {
-	name: "FinCommons",
+	name: "Open Financial Agent",
 	tagline: "The open index of financial services for AI agents.",
-	repo: "https://github.com/fincommons/fincommons",
+	repo: "https://github.com/open-financial-agent/open-financial-agent",
 	specVersion: "ARD v0.91",
 } as const;
 

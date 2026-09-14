@@ -25,7 +25,7 @@ Rank entries against a natural-language need.
 Returns `results[]` (each an entry with `publisher`, `score` 0–100 and `source`), `total`, and `pageToken` when more pages exist. The text content is a compact list; `structuredContent` carries the full objects.
 
 ```json
-{ "query": "insure my dog", "filter": { "fc:country": ["SE", "ES"] }, "pageSize": 5 }
+{ "query": "insure my dog", "filter": { "ofa:country": ["SE", "ES"] }, "pageSize": 5 }
 ```
 
 ### `explore`
@@ -36,7 +36,7 @@ Facet counts over the matched set. Call with no arguments for the whole index.
 | --- | --- | --- |
 | `query` | string | Optional. Narrows the matched set by relevance. |
 | `filter` | object | Optional. Same shape as `search`. |
-| `facets` | string[] | Optional. Term paths; default `fc:sector`, `fc:lineOfBusiness`, `fc:country`, `type`, `publisher`, `fc:actions`, `fc:status`. |
+| `facets` | string[] | Optional. Term paths; default `ofa:sector`, `ofa:lineOfBusiness`, `ofa:country`, `type`, `publisher`, `ofa:actions`, `ofa:status`. |
 
 ### `get_entry`
 
@@ -72,4 +72,4 @@ Relevant passages from the provider appear here.
 
 ## Filter keys
 
-Any term an entry carries is a filter key: core ARD terms (`type`, `tags`, `capabilities`, `version`), the derived `publisher`, literal paths into `metadata.*`, and the [fc: vocabulary](/docs/vocabulary). Unknown keys match nothing rather than erroring.
+Any term an entry carries is a filter key: core ARD terms (`type`, `tags`, `capabilities`, `version`), the derived `publisher`, literal paths into `metadata.*`, and the [ofa: vocabulary](/docs/vocabulary). Unknown keys match nothing rather than erroring.

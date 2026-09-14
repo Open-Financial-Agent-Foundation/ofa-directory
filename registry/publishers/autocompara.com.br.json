@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Autocompara (Santander Brasil)", "identifier": "autocompara.com.br", "documentationUrl": "https://www.autocompara.com.br" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "compare car insurance offers in Brazil",
         "o que o seguro auto cobre em caso de roubo"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["auto"], "fc:role": ["comparator"], "fc:actions": ["quote", "compare", "faq"],
-      "fc:country": ["BR"], "fc:languages": ["pt-BR", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["auto"], "ofa:role": ["comparator"], "ofa:actions": ["quote", "compare", "faq"],
+      "ofa:country": ["BR"], "ofa:languages": ["pt-BR", "en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

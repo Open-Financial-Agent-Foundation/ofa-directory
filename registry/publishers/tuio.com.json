@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Tuio", "identifier": "tuio.com", "documentationUrl": "https://tuio.com" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "what does Tuio cover for water damage",
         "condiciones generales del seguro de hogar Tuio"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home"], "fc:actions": ["quote", "faq"],
-      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["home"], "ofa:actions": ["quote", "faq"],
+      "ofa:country": ["ES"], "ofa:languages": ["es", "en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     },
     {
       "identifier": "urn:air:tuio.com:agent:pet-care",
@@ -34,8 +34,8 @@
         "my cat is vomiting, what should I do",
         "pet insurance requirements under Ley 7/2023"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["pet"], "fc:actions": ["faq"],
-      "fc:country": ["ES"], "fc:languages": ["es", "en"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["pet"], "ofa:actions": ["faq"],
+      "ofa:country": ["ES"], "ofa:languages": ["es", "en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

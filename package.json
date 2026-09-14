@@ -1,8 +1,8 @@
 {
-  "name": "fincommons",
+  "name": "open-financial-agent",
   "version": "0.1.0",
   "private": true,
-  "description": "FinCommons: the open index of financial services for AI agents. An ARD-conformant registry with an MCP server and REST API.",
+  "description": "Open Financial Agent: the open index of financial services for AI agents. An ARD-conformant registry with an MCP server and REST API.",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "next dev --turbopack",

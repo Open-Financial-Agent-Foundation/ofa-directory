@@ -45,7 +45,7 @@ export function queryFilter(query: z.infer<typeof querySchema> | undefined): Fil
 	return normalizeFilter(query?.filter);
 }
 
-/** `GET /agents?filter=fc:country=FR,ES;type=application/mcp-server-card+json`. `=` separates key and values because keys carry colons; `key:value` is accepted when the key has none. */
+/** `GET /agents?filter=ofa:country=FR,ES;type=application/mcp-server-card+json`. `=` separates key and values because keys carry colons; `key:value` is accepted when the key has none. */
 export function parseListFilter(raw: string | null): Filter {
 	if (!raw) return {};
 	const out: Filter = {};

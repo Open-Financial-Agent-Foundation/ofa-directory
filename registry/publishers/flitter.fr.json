@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Flitter", "identifier": "flitter.fr", "documentationUrl": "https://www.flitter.fr" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "quel est mon bonus-malus après 5 ans de permis",
         "car insurance quote in France"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["auto"], "fc:actions": ["quote"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["auto"], "ofa:actions": ["quote"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

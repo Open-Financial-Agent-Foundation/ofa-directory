@@ -1,6 +1,6 @@
 # Publish your catalog
 
-Two ways in. Both end with your entries searchable by every agent connected to FinCommons, and by any other ARD registry that crawls you.
+Two ways in. Both end with your entries searchable by every agent connected to Open Financial Agent, and by any other ARD registry that crawls you.
 
 ## Option A: host `ai-catalog.json` on your domain
 
@@ -21,7 +21,7 @@ Add `registry/publishers/<your-domain>.json` with the same content. A steward ca
 ```json
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": {
     "displayName": "Acme Seguros",
     "identifier": "acme-seguros.es",
@@ -40,13 +40,13 @@ Add `registry/publishers/<your-domain>.json` with the same content. A steward ca
         "home insurance quote in Spain",
         "does the policy cover water damage"
       ],
-      "fc:sector": ["insurance"],
-      "fc:lineOfBusiness": ["home"],
-      "fc:role": ["carrier"],
-      "fc:actions": ["quote", "faq"],
-      "fc:country": ["ES"],
-      "fc:languages": ["es", "en"],
-      "fc:status": "live"
+      "ofa:sector": ["insurance"],
+      "ofa:lineOfBusiness": ["home"],
+      "ofa:role": ["carrier"],
+      "ofa:actions": ["quote", "faq"],
+      "ofa:country": ["ES"],
+      "ofa:languages": ["es", "en"],
+      "ofa:status": "live"
     }
   ]
 }
@@ -67,13 +67,13 @@ Add `registry/publishers/<your-domain>.json` with the same content. A steward ca
 
 `capabilities` should list the tool names your server exposes. Agents filter on them before connecting.
 
-The `fc:` terms drive the facets and every country or sector filter. See [the vocabulary](/docs/vocabulary).
+The `ofa:` terms drive the facets and every country or sector filter. See [the vocabulary](/docs/vocabulary).
 
 ## Validate locally
 
 ```bash
-git clone https://github.com/fincommons/fincommons
-cd fincommons && bun install
+git clone https://github.com/open-financial-agent/open-financial-agent
+cd open-financial-agent && bun install
 bun run validate
 ```
 
@@ -81,4 +81,4 @@ The validator checks the schema, identifier uniqueness and publisher binding, an
 
 ## Trust
 
-v0 records who submitted an entry (`metadata.steward`) and whether the endpoint answered MCP at the last check (`fc:status`). Domain verification (DNS record or signed `trustManifest`) is the next milestone; until then a listing means "this exists and answers", not "FinCommons vouches for it".
+v0 records who submitted an entry (`metadata.steward`) and whether the endpoint answered MCP at the last check (`ofa:status`). Domain verification (DNS record or signed `trustManifest`) is the next milestone; until then a listing means "this exists and answers", not "Open Financial Agent vouches for it".

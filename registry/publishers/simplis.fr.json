@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Simplis", "identifier": "simplis.fr", "documentationUrl": "https://www.simplis.fr" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "je suis consultant freelance, quelle assurance pro me faut-il",
         "être rappelé par un conseiller Simplis"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["professional-liability"], "fc:actions": ["quote", "callback"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["professional-liability"], "ofa:actions": ["quote", "callback"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

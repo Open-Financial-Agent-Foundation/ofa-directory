@@ -85,7 +85,7 @@ function buildDocs(entries: IndexedEntry[]): { docs: Doc[]; idf: Map<string, num
 				capabilities: tokenize((e.capabilities ?? []).join(" ").replace(/[_-]/g, " ")),
 				tags: tokenize((e.tags ?? []).join(" ")),
 				lineOfBusiness: tokenize(
-					[...(e["fc:lineOfBusiness"] ?? []), ...(e["fc:sector"] ?? [])].join(" "),
+					[...(e["ofa:lineOfBusiness"] ?? []), ...(e["ofa:sector"] ?? [])].join(" "),
 				),
 				description: tokenize(e.description ?? ""),
 				instructions: tokenize(instructions),

@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Mal Bazaar", "identifier": "mal-bazaar.vercel.app" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "group health insurance for 20 employees",
         "someone call me back about insurance"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["health", "auto", "group-health"], "fc:actions": ["quote", "callback"],
-      "fc:country": ["EG"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["health", "auto", "group-health"], "ofa:actions": ["quote", "callback"],
+      "ofa:country": ["EG"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

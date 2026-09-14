@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Offre MRH Jeunes", "identifier": "offre-mrh-jeunes.vercel.app" },
   "entries": [
     {
@@ -16,8 +16,8 @@
         "devis assurance appartement première location",
         "que couvre l'assurance habitation en cas de dégât des eaux"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["home"], "fc:actions": ["quote", "faq"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "demo", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["home"], "ofa:actions": ["quote", "faq"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "demo", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

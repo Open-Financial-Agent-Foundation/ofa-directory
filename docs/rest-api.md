@@ -12,7 +12,7 @@ curl -X POST {{SITE_URL}}/api/v1/search \
   -d '{
     "query": {
       "text": "personal loan simulation",
-      "filter": { "fc:country": ["ES"] }
+      "filter": { "ofa:country": ["ES"] }
     },
     "federation": "none",
     "pageSize": 5
@@ -56,7 +56,7 @@ Facet aggregation over the matched set. `query` is optional; without it the aggr
 ```bash
 curl -X POST {{SITE_URL}}/api/v1/explore \
   -H "content-type: application/json" \
-  -d '{ "resultType": { "facets": [ { "field": "fc:sector" }, { "field": "fc:country", "limit": 50 } ] } }'
+  -d '{ "resultType": { "facets": [ { "field": "ofa:sector" }, { "field": "ofa:country", "limit": 50 } ] } }'
 ```
 
 ```json
@@ -64,7 +64,7 @@ curl -X POST {{SITE_URL}}/api/v1/explore \
   "resultType": "facets",
   "matched": 15,
   "facets": {
-    "fc:sector": { "buckets": [ { "value": "insurance", "count": 11 } ] }
+    "ofa:sector": { "buckets": [ { "value": "insurance", "count": 11 } ] }
   }
 }
 ```
@@ -74,7 +74,7 @@ curl -X POST {{SITE_URL}}/api/v1/explore \
 Deterministic, cacheable listing. No relevance ranking.
 
 ```text
-GET /api/v1/agents?filter=fc:country=FR;fc:actions=quote&orderBy=displayName&pageSize=20
+GET /api/v1/agents?filter=ofa:country=FR;ofa:actions=quote&orderBy=displayName&pageSize=20
 ```
 
 | Parameter | Notes |
@@ -86,7 +86,7 @@ GET /api/v1/agents?filter=fc:country=FR;fc:actions=quote&orderBy=displayName&pag
 
 ## `GET /entries/{identifier}`
 
-The complete entry for one identifier, URL-encoded. ARD leaves this operation out of scope; every client needs it, so FinCommons provides it.
+The complete entry for one identifier, URL-encoded. ARD leaves this operation out of scope; every client needs it, so Open Financial Agent provides it.
 
 ```text
 GET /api/v1/entries/urn%3Aair%3Atuio.com%3Aagent%3Ahome-insurance

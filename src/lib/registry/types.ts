@@ -12,9 +12,9 @@ export const KNOWN_TYPES = {
 	html: "text/html",
 } as const;
 
-/** The FinCommons vocabulary. Every term here is a filter dimension on `/search` and `/explore`. */
-export const FC_NAMESPACE = "https://fincommons.org/ns#";
-export const FC_PREFIX = "fc";
+/** The Open Financial Agent vocabulary. Every term here is a filter dimension on `/search` and `/explore`. */
+export const FC_NAMESPACE = "https://openfinancialagent.org/ns#";
+export const FC_PREFIX = "ofa";
 export const ARD_NAMESPACE = "https://agenticresourcediscovery.org/ns#";
 export const ARD_CONTEXT_URL = "https://agenticresourcediscovery.org/context/v1";
 
@@ -51,15 +51,15 @@ export const FC_ACTIONS = [
 ] as const;
 
 export const fcTermsSchema = z.object({
-	"fc:sector": z.array(z.enum(FC_SECTORS)).optional(),
-	"fc:lineOfBusiness": z.array(z.string().min(1)).optional(),
-	"fc:role": z.array(z.enum(FC_ROLES)).optional(),
-	"fc:actions": z.array(z.enum(FC_ACTIONS)).optional(),
-	"fc:country": z.array(z.string().regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2")).optional(),
-	"fc:languages": z.array(z.string().regex(/^[a-z]{2}(-[A-Z]{2})?$/, "BCP 47")).optional(),
-	"fc:regulator": z.array(z.string().min(1)).optional(),
-	"fc:hostedBy": z.string().min(1).optional(),
-	"fc:status": z.enum(["live", "demo", "listing"]).optional(),
+	"ofa:sector": z.array(z.enum(FC_SECTORS)).optional(),
+	"ofa:lineOfBusiness": z.array(z.string().min(1)).optional(),
+	"ofa:role": z.array(z.enum(FC_ROLES)).optional(),
+	"ofa:actions": z.array(z.enum(FC_ACTIONS)).optional(),
+	"ofa:country": z.array(z.string().regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2")).optional(),
+	"ofa:languages": z.array(z.string().regex(/^[a-z]{2}(-[A-Z]{2})?$/, "BCP 47")).optional(),
+	"ofa:regulator": z.array(z.string().min(1)).optional(),
+	"ofa:hostedBy": z.string().min(1).optional(),
+	"ofa:status": z.enum(["live", "demo", "listing"]).optional(),
 });
 
 const contextSchema = z.union([

@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Europea Seguros", "identifier": "europeaseguros.es", "documentationUrl": "https://www.europeaseguros.es" },
   "entries": [
     {
@@ -16,8 +16,8 @@
         "¿cuánto cuesta un seguro de decesos a los 60 años?",
         "funeral insurance quote in Spain"
       ],
-      "fc:sector": ["insurance"], "fc:lineOfBusiness": ["funeral"], "fc:role": ["carrier"], "fc:actions": ["quote", "faq"],
-      "fc:country": ["ES"], "fc:languages": ["es"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["funeral"], "ofa:role": ["carrier"], "ofa:actions": ["quote", "faq"],
+      "ofa:country": ["ES"], "ofa:languages": ["es"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

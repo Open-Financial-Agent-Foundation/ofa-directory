@@ -1,8 +1,8 @@
-# FinCommons
+# Open Financial Agent
 
-FinCommons is an open registry of financial-services capabilities for AI agents: which insurer can quote home cover in Spain, which lender simulates a personal loan, which public bank explains its financing programs. Providers publish what their agents can do; agents ask one place, get ranked matches, and connect to the provider directly.
+Open Financial Agent is an open registry of financial-services capabilities for AI agents: which insurer can quote home cover in Spain, which lender simulates a personal loan, which public bank explains its financing programs. Providers publish what their agents can do; agents ask one place, get ranked matches, and connect to the provider directly.
 
-It conforms to [Agentic Resource Discovery](https://github.com/ards-project/ard-spec) (ARD v0.91), the open specification Google, Microsoft, GitHub and others published in June 2026. FinCommons adds a small vocabulary for finance (`fc:`) and a hosted index so nobody has to crawl the web themselves.
+It conforms to [Agentic Resource Discovery](https://github.com/ards-project/ard-spec) (ARD v0.91), the open specification Google, Microsoft, GitHub and others published in June 2026. Open Financial Agent adds a small vocabulary for finance (`ofa:`) and a hosted index so nobody has to crawl the web themselves.
 
 Use it through the public MCP server or the REST API. Neither needs an API key.
 
@@ -16,7 +16,7 @@ Use it through the public MCP server or the REST API. Neither needs an API key.
 2. **Rank the entries.** The index scores every entry on its representative queries, name, capabilities, tags and description, then applies the filters. Scores are relevance, never trust.
 3. **Return entries, not answers.** Each result is an ARD entry: an identifier, a type, and a `url` the agent connects to with the resource's native protocol (MCP, A2A, OpenAPI).
 
-One operation goes further. `context` takes a factual question, asks the matching providers' own MCP servers through their knowledge tools, and returns their answers with the source. FinCommons never answers a product question itself.
+One operation goes further. `context` takes a factual question, asks the matching providers' own MCP servers through their knowledge tools, and returns their answers with the source. Open Financial Agent never answers a product question itself.
 
 ## Choose an operation
 
@@ -30,7 +30,7 @@ One operation goes further. `context` takes a factual question, asks the matchin
 
 ## What is indexed
 
-Three origins, all plain JSON files in the [repository](https://github.com/fincommons/fincommons):
+Three origins, all plain JSON files in the [repository](https://github.com/open-financial-agent/open-financial-agent):
 
 - **Publisher catalogs** (`registry/publishers/`): one `ai-catalog.json` per publisher domain, maintained by the publisher or a steward through pull requests.
 - **Crawled catalogs** (`registry/crawled/`): fetched from `https://<domain>/.well-known/ai-catalog.json` for every domain in `registry/sources.json`.
@@ -42,5 +42,5 @@ Three origins, all plain JSON files in the [repository](https://github.com/finco
 - [MCP server reference](/docs/mcp)
 - [REST API reference](/docs/rest-api)
 - [Publish your catalog](/docs/publish)
-- [The fc: vocabulary](/docs/vocabulary)
+- [The ofa: vocabulary](/docs/vocabulary)
 - [Governance](/docs/governance)

@@ -1,20 +1,20 @@
-# FinCommons
+# Open Financial Agent
 
 The open index of financial services for AI agents.
 
 Insurers, banks, lenders and public financiers publish what their agents can do. Personal agents (Muse, Grok, Claude, ChatGPT, anything that speaks MCP or HTTP) ask one place who can quote, compare, explain or apply, then connect to the provider directly.
 
-FinCommons is a registry conforming to [Agentic Resource Discovery](https://github.com/ards-project/ard-spec) (ARD v0.91), with a finance vocabulary (`fc:`), a public MCP server, a REST API, and a website. The registry itself is a folder of JSON files in this repository: adding a provider is a pull request.
+Open Financial Agent is a registry conforming to [Agentic Resource Discovery](https://github.com/ards-project/ard-spec) (ARD v0.91), with a finance vocabulary (`ofa:`), a public MCP server, a REST API, and a website. The registry itself is a folder of JSON files in this repository: adding a provider is a pull request.
 
-- Website and index: https://fincommons.org
-- MCP: `https://fincommons.org/mcp`
-- REST: `https://fincommons.org/api/v1`
-- Catalog: `https://fincommons.org/.well-known/ai-catalog.json`
+- Website and index: https://openfinancialagent.org
+- MCP: `https://openfinancialagent.org/mcp`
+- REST: `https://openfinancialagent.org/api/v1`
+- Catalog: `https://openfinancialagent.org/.well-known/ai-catalog.json`
 
 ## Connect an agent
 
 ```bash
-claude mcp add --transport http fincommons https://fincommons.org/mcp
+claude mcp add --transport http ofa https://openfinancialagent.org/mcp
 ```
 
 Tools: `search`, `explore`, `get_entry`, `context`. See [docs/mcp.md](docs/mcp.md).
@@ -47,7 +47,7 @@ scripts/               validate, crawl, import, spec-sync
 src/lib/registry/      loader, ranking, facets, term resolution, context federation
 src/app/api/v1/        POST /search, POST /explore, GET /agents, GET /entries/{id}
 src/app/mcp/           the MCP server
-src/app/.well-known/   FinCommons' own catalog
+src/app/.well-known/   Open Financial Agent's own catalog
 ```
 
 ## Governance

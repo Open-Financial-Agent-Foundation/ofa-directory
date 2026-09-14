@@ -5,11 +5,11 @@ import type { IndexedEntry } from "@/lib/registry/types";
 import { SITE, siteUrl } from "@/lib/site";
 
 const FACETS: { field: string; label: string }[] = [
-	{ field: "fc:sector", label: "Sector" },
-	{ field: "fc:lineOfBusiness", label: "Line of business" },
-	{ field: "fc:country", label: "Country" },
-	{ field: "fc:actions", label: "Actions" },
-	{ field: "fc:status", label: "Status" },
+	{ field: "ofa:sector", label: "Sector" },
+	{ field: "ofa:lineOfBusiness", label: "Line of business" },
+	{ field: "ofa:country", label: "Country" },
+	{ field: "ofa:actions", label: "Actions" },
+	{ field: "ofa:status", label: "Status" },
 ];
 
 function toRow(e: IndexedEntry): Row {
@@ -22,11 +22,11 @@ function toRow(e: IndexedEntry): Row {
 		url: x.url ?? null,
 		publisher: e.publisher,
 		capabilities: x.capabilities ?? [],
-		sector: x["fc:sector"] ?? [],
-		lineOfBusiness: x["fc:lineOfBusiness"] ?? [],
-		country: x["fc:country"] ?? [],
-		actions: x["fc:actions"] ?? [],
-		status: x["fc:status"] ?? null,
+		sector: x["ofa:sector"] ?? [],
+		lineOfBusiness: x["ofa:lineOfBusiness"] ?? [],
+		country: x["ofa:country"] ?? [],
+		actions: x["ofa:actions"] ?? [],
+		status: x["ofa:status"] ?? null,
 		score: null,
 	};
 }
@@ -46,9 +46,9 @@ export default function Home() {
 		...f,
 		buckets: facetResult.facets[f.field]?.buckets ?? [],
 	}));
-	const live = registry.entries.filter((e) => e.entry["fc:status"] === "live").length;
+	const live = registry.entries.filter((e) => e.entry["ofa:status"] === "live").length;
 	const publishers = new Set(registry.entries.map((e) => e.publisher)).size;
-	const countries = new Set(registry.entries.flatMap((e) => e.entry["fc:country"] ?? [])).size;
+	const countries = new Set(registry.entries.flatMap((e) => e.entry["ofa:country"] ?? [])).size;
 
 	return (
 		<div className="py-12 sm:py-16">
@@ -73,7 +73,7 @@ export default function Home() {
 					))}
 				</dl>
 				<pre className="mt-6 mono text-[12.5px] text-muted bg-code border border-rule rounded-[4px] px-4 py-3 overflow-x-auto">
-					<code>{`claude mcp add --transport http fincommons ${siteUrl()}/mcp`}</code>
+					<code>{`claude mcp add --transport http ofa ${siteUrl()}/mcp`}</code>
 				</pre>
 			</section>
 

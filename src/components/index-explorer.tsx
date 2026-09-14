@@ -44,11 +44,11 @@ function toRow(r: Record<string, unknown>): Row {
 		url: str(r.url),
 		publisher: str(r.publisher) ?? "",
 		capabilities: arr(r.capabilities),
-		sector: arr(r["fc:sector"]),
-		lineOfBusiness: arr(r["fc:lineOfBusiness"]),
-		country: arr(r["fc:country"]),
-		actions: arr(r["fc:actions"]),
-		status: str(r["fc:status"]),
+		sector: arr(r["ofa:sector"]),
+		lineOfBusiness: arr(r["ofa:lineOfBusiness"]),
+		country: arr(r["ofa:country"]),
+		actions: arr(r["ofa:actions"]),
+		status: str(r["ofa:status"]),
 		score: typeof r.score === "number" ? r.score : null,
 	};
 }
@@ -116,7 +116,7 @@ export function IndexExplorer({
 				}
 			} catch (error) {
 				if (!(error instanceof DOMException && error.name === "AbortError"))
-					console.error("[fincommons] search failed", { error });
+					console.error("[ofa] search failed", { error });
 			} finally {
 				if (!ctl.signal.aborted) setBusy(false);
 			}

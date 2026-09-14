@@ -2,7 +2,7 @@ import { ARD_NAMESPACE, type Entry, FC_NAMESPACE, FC_PREFIX, type IndexedEntry }
 
 /**
  * Resolves a filter key or entry key to the IRI it denotes, the way ARD §5.3.1 asks:
- * core terms live in the ARD namespace, `fc:*` in the FinCommons namespace, and a
+ * core terms live in the ARD namespace, `ofa:*` in the Open Financial Agent namespace, and a
  * publisher's own prefix resolves through the `@context` it declared.
  * Dot paths keep their tail as a literal JSON path (`metadata.platform`).
  */

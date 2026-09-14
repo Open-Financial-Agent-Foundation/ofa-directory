@@ -1,7 +1,7 @@
 /**
  * Turns an export of public app-directory listings (ChatGPT apps, Claude connectors) into
  * catalog entries under `registry/listings/`. A listing has no endpoint of its own, so it is
- * published as `text/html` pointing at the directory page, with `fc:status: "listing"`.
+ * published as `text/html` pointing at the directory page, with `ofa:status: "listing"`.
  *
  * Usage: bun run scripts/import-directories.ts <export.json>
  * Rows: { source, name, category, appUrl, oneLiner, description, logoUrl, countries, capabilities, firstSeenAt }.
@@ -84,9 +84,9 @@ for (const source of Object.keys(PLATFORM) as (keyof typeof PLATFORM)[]) {
 						...(r.category ? [slugify(r.category)] : []),
 						isInsurance ? "insurance" : "financial-services",
 					],
-					...(isInsurance ? { "fc:sector": ["insurance"] } : {}),
-					...(countries.length ? { "fc:country": countries } : {}),
-					"fc:status": "listing",
+					...(isInsurance ? { "ofa:sector": ["insurance"] } : {}),
+					...(countries.length ? { "ofa:country": countries } : {}),
+					"ofa:status": "listing",
 					metadata: {
 						platform: meta.platform,
 						directoryCategory: r.category,
@@ -101,7 +101,7 @@ for (const source of Object.keys(PLATFORM) as (keyof typeof PLATFORM)[]) {
 	const out = `registry/listings/${source}.json`;
 	writeFileSync(
 		out,
-		`${JSON.stringify({ specVersion: "1.0", "@context": { fc: "https://fincommons.org/ns#" }, host: { displayName: meta.host, identifier: meta.publisher }, entries }, null, 2)}\n`,
+		`${JSON.stringify({ specVersion: "1.0", "@context": { ofa: "https://openfinancialagent.org/ns#" }, host: { displayName: meta.host, identifier: meta.publisher }, entries }, null, 2)}\n`,
 	);
 	console.log(`${out}: ${entries.length} listings`);
 }

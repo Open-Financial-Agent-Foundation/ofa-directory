@@ -8,13 +8,13 @@ export type FacetResult = { buckets: FacetBucket[]; otherCount?: number };
 
 /** The facets the home page and `/explore` default to when a caller names none. */
 export const DEFAULT_FACETS: FacetRequest[] = [
-	{ field: "fc:sector" },
-	{ field: "fc:lineOfBusiness" },
-	{ field: "fc:country" },
+	{ field: "ofa:sector" },
+	{ field: "ofa:lineOfBusiness" },
+	{ field: "ofa:country" },
 	{ field: "type" },
 	{ field: "publisher", limit: 50 },
-	{ field: "fc:actions" },
-	{ field: "fc:status" },
+	{ field: "ofa:actions" },
+	{ field: "ofa:status" },
 ];
 
 export function explore(input: {

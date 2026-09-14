@@ -81,7 +81,7 @@ export async function askProvider(input: {
 		text: "",
 	};
 	if (!entry.url) return { ...base, error: "entry has no url" };
-	const client = new Client({ name: "fincommons", version: "0.1.0" });
+	const client = new Client({ name: "open-financial-agent", version: "0.1.0" });
 	try {
 		const transport = new StreamableHTTPClientTransport(new URL(entry.url));
 		await withTimeout(client.connect(transport), input.timeoutMs, "connect");
@@ -117,7 +117,7 @@ export async function askProvider(input: {
 
 /**
  * The Mintlify-style `context` operation: rank the providers that fit the question, then ask
- * each one's own MCP server and return what they said, cited. FinCommons never answers itself.
+ * each one's own MCP server and return what they said, cited. Open Financial Agent never answers itself.
  */
 export async function buildContext(input: {
 	entries: IndexedEntry[];

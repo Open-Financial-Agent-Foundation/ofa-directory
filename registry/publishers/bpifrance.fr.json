@@ -1,6 +1,6 @@
 {
   "specVersion": "1.0",
-  "@context": { "fc": "https://fincommons.org/ns#" },
+  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
   "host": { "displayName": "Bpifrance", "identifier": "bpifrance.fr", "documentationUrl": "https://www.bpifrance.fr" },
   "entries": [
     {
@@ -17,8 +17,8 @@
         "assurance prospection export pour une PME",
         "financement innovation jeune entreprise"
       ],
-      "fc:sector": ["public-finance", "lending"], "fc:lineOfBusiness": ["business-financing", "export-insurance"], "fc:role": ["public-body"], "fc:actions": ["search", "apply", "faq"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["public-finance", "lending"], "ofa:lineOfBusiness": ["business-financing", "export-insurance"], "ofa:role": ["public-body"], "ofa:actions": ["search", "apply", "faq"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     },
     {
       "identifier": "urn:air:bpifrance.fr:agent:conseil",
@@ -33,8 +33,8 @@
         "accompagnement dirigeant PME transition écologique",
         "catalogue des offres de conseil Bpifrance"
       ],
-      "fc:sector": ["public-finance"], "fc:lineOfBusiness": ["advisory"], "fc:role": ["public-body"], "fc:actions": ["search"],
-      "fc:country": ["FR"], "fc:languages": ["fr"], "fc:status": "live", "fc:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "ofa:sector": ["public-finance"], "ofa:lineOfBusiness": ["advisory"], "ofa:role": ["public-body"], "ofa:actions": ["search"],
+      "ofa:country": ["FR"], "ofa:languages": ["fr"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
     }
   ]
 }

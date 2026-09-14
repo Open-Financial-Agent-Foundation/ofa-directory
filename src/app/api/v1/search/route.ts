@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 	} catch (error) {
 		if (error instanceof Error && error.message === "INVALID_PAGE_TOKEN")
 			return apiError(400, "INVALID_ARGUMENT", "pageToken is not valid.");
-		console.error("[fincommons] search failed", { error });
+		console.error("[ofa] search failed", { error });
 		return apiError(500, "INTERNAL", "Search failed.");
 	}
 }

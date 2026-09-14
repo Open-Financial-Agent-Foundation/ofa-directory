@@ -47,7 +47,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 			</p>
 			<div className="flex flex-wrap items-center gap-3 mt-3">
 				<h1 className="text-[30px] sm:text-[38px] font-bold">{e.displayName}</h1>
-				<StatusPill status={e["fc:status"]} />
+				<StatusPill status={e["ofa:status"]} />
 				<TypeMark type={e.type} />
 			</div>
 			<p className="mono text-[13px] text-muted mt-2 break-all">{e.identifier}</p>
@@ -64,7 +64,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 						{typeof e.metadata?.auth === "string"
 							? `auth: ${e.metadata.auth}`
 							: "auth as the provider declares"}
-						. FinCommons only points here; the provider runs it.
+						. Open Financial Agent only points here; the provider runs it.
 					</p>
 				</section>
 			)}
@@ -99,15 +99,15 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 						</a>
 					</Field>
 				)}
-				{e["fc:sector"] && <Field label="Sector">{e["fc:sector"].join(", ")}</Field>}
-				{e["fc:lineOfBusiness"] && (
-					<Field label="Line of business">{e["fc:lineOfBusiness"].join(", ")}</Field>
+				{e["ofa:sector"] && <Field label="Sector">{e["ofa:sector"].join(", ")}</Field>}
+				{e["ofa:lineOfBusiness"] && (
+					<Field label="Line of business">{e["ofa:lineOfBusiness"].join(", ")}</Field>
 				)}
-				{e["fc:role"] && <Field label="Role">{e["fc:role"].join(", ")}</Field>}
-				{e["fc:actions"] && <Field label="Actions">{e["fc:actions"].join(", ")}</Field>}
-				{e["fc:country"] && <Field label="Country">{e["fc:country"].join(", ")}</Field>}
-				{e["fc:languages"] && <Field label="Languages">{e["fc:languages"].join(", ")}</Field>}
-				{e["fc:hostedBy"] && <Field label="Hosted by">{e["fc:hostedBy"]}</Field>}
+				{e["ofa:role"] && <Field label="Role">{e["ofa:role"].join(", ")}</Field>}
+				{e["ofa:actions"] && <Field label="Actions">{e["ofa:actions"].join(", ")}</Field>}
+				{e["ofa:country"] && <Field label="Country">{e["ofa:country"].join(", ")}</Field>}
+				{e["ofa:languages"] && <Field label="Languages">{e["ofa:languages"].join(", ")}</Field>}
+				{e["ofa:hostedBy"] && <Field label="Hosted by">{e["ofa:hostedBy"]}</Field>}
 				{e.capabilities && e.capabilities.length > 0 && (
 					<Field label="Capabilities">
 						<ul className="flex flex-wrap gap-1.5">

@@ -1,11 +1,11 @@
 # Connect an agent
 
-FinCommons speaks MCP over Streamable HTTP and plain REST. Pick whichever your agent runtime supports. No account, no key.
+Open Financial Agent speaks MCP over Streamable HTTP and plain REST. Pick whichever your agent runtime supports. No account, no key.
 
 ## Claude Code
 
 ```bash
-claude mcp add --transport http fincommons {{SITE_URL}}/mcp
+claude mcp add --transport http ofa {{SITE_URL}}/mcp
 claude mcp list
 ```
 
@@ -16,7 +16,7 @@ Add the server to the client's MCP configuration:
 ```json
 {
   "mcpServers": {
-    "fincommons": { "url": "{{SITE_URL}}/mcp" }
+    "ofa": { "url": "{{SITE_URL}}/mcp" }
   }
 }
 ```
@@ -30,18 +30,18 @@ Create a custom connector and paste `{{SITE_URL}}/mcp` as the server URL. The se
 ```bash
 curl -X POST {{SITE_URL}}/api/v1/search \
   -H "content-type: application/json" \
-  -d '{"query":{"text":"home insurance quote in Spain","filter":{"fc:actions":["quote"]}},"pageSize":5}'
+  -d '{"query":{"text":"home insurance quote in Spain","filter":{"ofa:actions":["quote"]}},"pageSize":5}'
 ```
 
 ## Tell the agent when to use it
 
 The index works best with a short rule in the agent's instructions:
 
-> Use FinCommons `search` whenever the user needs an insurance, banking, lending or investment provider. Use `context` for factual product questions. Connect to the provider's `url` to quote or apply. Treat `score` as relevance, never as trust.
+> Use Open Financial Agent `search` whenever the user needs an insurance, banking, lending or investment provider. Use `context` for factual product questions. Connect to the provider's `url` to quote or apply. Treat `score` as relevance, never as trust.
 
-## Discover FinCommons itself
+## Discover Open Financial Agent itself
 
-Registries federate by finding entries of type `application/ai-registry+json`. FinCommons publishes its own at `{{SITE_URL}}/.well-known/ai-catalog.json`, so another ARD registry can add this domain to its sources and forward finance questions here.
+Registries federate by finding entries of type `application/ai-registry+json`. Open Financial Agent publishes its own at `{{SITE_URL}}/.well-known/ai-catalog.json`, so another ARD registry can add this domain to its sources and forward finance questions here.
 
 ## Rate limits
 
@@ -55,5 +55,5 @@ The public server applies per-IP limits. Responses above the limit return `429 T
 ## Remove the connection
 
 ```bash
-claude mcp remove fincommons
+claude mcp remove ofa
 ```

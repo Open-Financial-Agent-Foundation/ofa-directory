@@ -13,7 +13,7 @@ const filterInput = z
 	.record(z.string(), z.union([z.string(), z.array(z.string())]))
 	.optional()
 	.describe(
-		'Structured constraints, AND across keys, OR within a key. Keys: fc:sector, fc:lineOfBusiness, fc:country (ISO alpha-2), fc:actions, fc:role, fc:status, fc:languages, type, tags, capabilities, publisher. Example: {"fc:country":["ES"],"fc:actions":"quote"}',
+		'Structured constraints, AND across keys, OR within a key. Keys: ofa:sector, ofa:lineOfBusiness, ofa:country (ISO alpha-2), ofa:actions, ofa:role, ofa:status, ofa:languages, type, tags, capabilities, publisher. Example: {"ofa:country":["ES"],"ofa:actions":"quote"}',
 	);
 
 const INSTRUCTIONS = `${SITE.name} is an open registry of financial-services agents, MCP servers and APIs (insurance, banking, lending, payments, wealth, public finance). It conforms to Agentic Resource Discovery (ARD).
@@ -21,7 +21,7 @@ Use \`search\` to find providers for a task, \`explore\` to see what exists (fac
 
 function buildServer(request: Request): McpServer {
 	const server = new McpServer(
-		{ name: "fincommons", title: SITE.name, version: "0.1.0" },
+		{ name: "open-financial-agent", title: SITE.name, version: "0.1.0" },
 		{ capabilities: {}, instructions: INSTRUCTIONS },
 	);
 
@@ -120,7 +120,7 @@ function buildServer(request: Request): McpServer {
 		{
 			title: "Get one entry",
 			description:
-				"The complete ARD entry for an identifier (urn:air:...), including representative queries, capabilities and the FinCommons vocabulary terms.",
+				"The complete ARD entry for an identifier (urn:air:...), including representative queries, capabilities and the Open Financial Agent vocabulary terms.",
 			inputSchema: { identifier: z.string().regex(/^urn:air:/) },
 			annotations: { readOnlyHint: true, openWorldHint: false },
 		},
