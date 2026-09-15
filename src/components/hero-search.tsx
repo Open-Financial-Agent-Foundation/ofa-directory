@@ -183,10 +183,7 @@ export function HeroSearch({ demos, total }: { demos: Demo[]; total: number }) {
 					>
 						Connect your agent
 					</Link>
-					<Link
-						href="/docs/publish"
-						className="text-muted hover:text-ink transition-colors duration-150"
-					>
+					<Link href="/submit" className="text-muted hover:text-ink transition-colors duration-150">
 						Publish yours
 					</Link>
 				</span>

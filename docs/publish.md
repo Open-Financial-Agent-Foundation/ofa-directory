@@ -1,10 +1,18 @@
 # Publish your catalog
 
-Two ways in. Both end with your entries searchable by every agent connected to Open Financial Agent, and by any other ARD registry that crawls you.
+Three ways in, shortest first. All of them end with your entries searchable by every agent connected to Open Financial Agent, and by any other ARD registry that crawls you.
 
-## Option A: host `ai-catalog.json` on your domain
+## The fastest: paste your endpoint
 
-This is the ARD way, and the one that makes you discoverable everywhere, not only here.
+Go to [/submit]({{SITE_URL}}/submit) and paste your MCP URL. The registry connects to it, calls `initialize` and `tools/list`, and drafts the entry from what your server says about itself: its name, its version, every tool it exposes. You fill in what an endpoint cannot tell us, which is the sector, the line of business, the countries you sell in and two to five representative queries. Then it opens a submission issue carrying the file.
+
+A maintainer checks that the endpoint answers and that the domain matches the identifier, then merges it. Nothing appears in the index before that.
+
+Your endpoint has to be reachable over HTTPS without a key for this to work. If it is not, send the file by pull request instead.
+
+## The best: host `ai-catalog.json` on your domain
+
+This is the ARD way, and the one that makes you discoverable everywhere rather than only here. Worth doing even after you have used the form.
 
 1. Create `https://<your-domain>/.well-known/ai-catalog.json`. It must return `200`, `Content-Type: application/json`, no redirects, no auth.
 2. Add a discovery hint: `<link rel="ai-catalog" href="/.well-known/ai-catalog.json">` in your HTML head, and `Agentmap: https://<your-domain>/.well-known/ai-catalog.json` in `robots.txt`.
@@ -12,7 +20,7 @@ This is the ARD way, and the one that makes you discoverable everywhere, not onl
 
 Every entry's `identifier` must start with `urn:air:<your-domain>:`. The crawler rejects a catalog that claims another publisher (ARD §4.5.1).
 
-## Option B: send the file as a pull request
+## By hand: send the file as a pull request
 
 Add `registry/publishers/<your-domain>.json` with the same content. A steward can do this for you while you set up the well-known path. Entries added this way carry `metadata.steward`.
 

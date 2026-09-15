@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 const NAV = [
 	{ href: "/", label: "Index" },
 	{ href: "/docs", label: "Docs" },
-	{ href: "/docs/publish", label: "Publish" },
+	{ href: "/submit", label: "Submit" },
 	{ href: SITE.repo, label: "GitHub" },
 ];
 

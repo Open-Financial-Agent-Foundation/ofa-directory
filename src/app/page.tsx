@@ -51,9 +51,9 @@ function toRow(e: IndexedEntry): Row {
 const STEPS = [
 	{
 		title: "Publish",
-		body: "A provider describes its agent in ai-catalog.json: what it does, the queries it answers, its endpoint. Hosted on its own domain or sent as a pull request.",
-		href: "/docs/publish",
-		link: "How to publish",
+		body: "A provider pastes its MCP endpoint. The registry reads what the server says about itself, drafts the catalog entry, and the publisher fills in the sector, the countries and the queries their customers ask.",
+		href: "/submit",
+		link: "Submit your agent",
 	},
 	{
 		title: "Index",
