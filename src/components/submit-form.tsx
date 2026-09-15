@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useId, useMemo, useState } from "react";
+import { buildCatalog, catalogPath, submissionSchema } from "@/lib/registry/build-catalog";
 
 type Draft = {
 	endpointHost: string;
@@ -35,6 +36,20 @@ function list(value: string): string[] {
 		.split(/[,\n]/)
 		.map((v) => v.trim())
 		.filter(Boolean);
+}
+
+function errorMessage(body: unknown, fallback: string): string {
+	if (
+		body &&
+		typeof body === "object" &&
+		"error" in body &&
+		body.error &&
+		typeof body.error === "object" &&
+		"message" in body.error
+	) {
+		return String(body.error.message);
+	}
+	return fallback;
 }
 
 function Row({
@@ -76,8 +91,8 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 	};
 
 	const [url, setUrl] = useState("");
-	const [busy, setBusy] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const [reading, setReading] = useState(false);
+	const [readError, setReadError] = useState<string | null>(null);
 	const [draft, setDraft] = useState<Draft | null>(null);
 
 	const [publisher, setPublisher] = useState("");
@@ -90,12 +105,18 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 	const [languages, setLanguages] = useState("");
 	const [actions, setActions] = useState<string[]>([]);
 	const [queries, setQueries] = useState("");
+
+	const [sending, setSending] = useState(false);
+	const [sendError, setSendError] = useState<string | null>(null);
+	const [opened, setOpened] = useState<{ url: string; number: number } | null>(null);
 	const [copied, setCopied] = useState(false);
 
 	async function read(event: React.FormEvent) {
 		event.preventDefault();
-		setBusy(true);
-		setError(null);
+		setReading(true);
+		setReadError(null);
+		setOpened(null);
+		setSendError(null);
 		try {
 			const res = await fetch("/api/introspect", {
 				method: "POST",
@@ -104,20 +125,11 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 			});
 			const body: unknown = await res.json();
 			if (!res.ok) {
-				const message =
-					body &&
-					typeof body === "object" &&
-					"error" in body &&
-					body.error &&
-					typeof body.error === "object" &&
-					"message" in body.error
-						? String(body.error.message)
-						: "Could not read that endpoint.";
-				setError(message);
+				setReadError(errorMessage(body, "Could not read that endpoint."));
 				setDraft(null);
 				return;
 			}
-			const next = body as Draft;
+			const next: Draft = body as Draft;
 			setDraft(next);
 			setPublisher(next.publisher);
 			setDisplayName(next.displayName);
@@ -126,9 +138,9 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 			setQueries(next.suggestedQueries.slice(0, 4).join("\n"));
 		} catch (cause) {
 			console.error("[ofa] introspect request failed", { cause });
-			setError("The request did not complete. Check the URL and try again.");
+			setReadError("The request did not complete. Check the URL and try again.");
 		} finally {
-			setBusy(false);
+			setReading(false);
 		}
 	}
 
@@ -140,91 +152,97 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 		.replace(/^www\./, "")
 		.replace(/\/.*$/, "");
 	const domainValid = /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(domain);
-	const identifier = draft ? `urn:air:${domain || draft.endpointHost}:agent:${draft.slug}` : "";
 	const hostedElsewhere = draft !== null && domainValid && domain !== draft.endpointHost;
+	const identifier = draft ? `urn:air:${domain || draft.endpointHost}:agent:${draft.slug}` : "";
 
-	const complete =
-		draft !== null &&
-		domainValid &&
-		displayName.trim().length > 0 &&
-		description.trim().length > 0 &&
-		sector !== "" &&
-		list(lob).length > 0 &&
-		actions.length > 0 &&
-		queryLines.length >= 2 &&
-		queryLines.length <= 5;
-
-	const catalog = useMemo(() => {
-		if (!draft) return "";
-		const countries = list(country).map((c) => c.toUpperCase());
-		const entry: Record<string, unknown> = {
-			identifier,
-			displayName: displayName.trim(),
-			type: "application/mcp-server-card+json",
+	// Parsed through the same schema the route enforces, so the button enables on exactly the
+	// conditions the server would accept and the preview is the file it would write.
+	const submission = useMemo(() => {
+		if (!draft || !domainValid) return null;
+		const candidate = {
 			url: draft.url,
+			publisher: domain,
+			displayName: displayName.trim(),
 			description: description.trim(),
-			capabilities: draft.capabilities,
+			sector,
+			lineOfBusiness: list(lob),
+			...(role ? { role } : {}),
+			actions,
+			country: list(country).map((c) => c.toUpperCase()),
+			languages: list(languages),
 			representativeQueries: queryLines,
-			...(draft.version ? { version: draft.version } : {}),
-			"ofa:sector": [sector],
-			"ofa:lineOfBusiness": list(lob).map((v) => v.toLowerCase()),
-			...(role ? { "ofa:role": [role] } : {}),
-			"ofa:actions": actions,
-			...(countries.length ? { "ofa:country": countries } : {}),
-			...(list(languages).length ? { "ofa:languages": list(languages) } : {}),
-			...(hostedElsewhere ? { "ofa:hostedBy": draft.endpointHost } : {}),
-			"ofa:status": "live",
-			metadata: { transport: "streamable-http", checkedAt: new Date().toISOString().slice(0, 10) },
 		};
-		return `${JSON.stringify(
-			{
-				specVersion: "1.0",
-				"@context": { ofa: "https://openfinancialagent.org/ns#" },
-				host: { displayName: displayName.trim(), identifier: domain },
-				entries: [entry],
-			},
-			null,
-			2,
-		)}\n`;
+		const result = submissionSchema.safeParse(candidate);
+		return result.success ? result.data : null;
 	}, [
 		draft,
-		identifier,
-		hostedElsewhere,
+		domainValid,
 		domain,
 		displayName,
 		description,
 		sector,
 		lob,
 		role,
+		actions,
 		country,
 		languages,
-		actions,
 		queryLines,
 	]);
 
-	const path = domainValid ? `registry/publishers/${domain}.json` : "";
-	const issueUrl = useMemo(() => {
-		if (!draft || !complete) return "";
-		const body = [
-			`Endpoint: ${draft.url}`,
-			`Publisher: ${domain}`,
-			`Proposed path: \`${path}\``,
-			"",
-			"I am the domain owner or a steward acting for them.",
-			"",
-			"```json",
-			catalog.trimEnd(),
-			"```",
-		].join("\n");
-		const query = new URLSearchParams({
-			title: `Submission: ${draft.publisher}`,
-			body,
-			labels: "submission",
-		});
-		return `${vocabulary.repo}/issues/new?${query.toString()}`;
-	}, [draft, complete, catalog, path, domain, vocabulary.repo]);
+	const complete = submission !== null;
 
-	const tooLongForGitHub = issueUrl.length > 7500;
+	// The same builder the server runs, so the file below is the file the pull request carries.
+	const catalog = useMemo(() => {
+		if (!draft || !submission) return "";
+		return buildCatalog({
+			submission,
+			facts: {
+				endpointHost: draft.endpointHost,
+				slug: draft.slug,
+				capabilities: draft.capabilities,
+				...(draft.version ? { version: draft.version } : {}),
+			},
+			checkedAt: new Date().toISOString().slice(0, 10),
+		});
+	}, [draft, submission]);
+
+	const path = domainValid ? catalogPath(domain) : "";
+
+	async function send() {
+		if (!submission) return;
+		setSending(true);
+		setSendError(null);
+		try {
+			const res = await fetch("/api/submit", {
+				method: "POST",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify(submission),
+			});
+			const body: unknown = await res.json();
+			if (!res.ok) {
+				setSendError(errorMessage(body, "The submission did not go through."));
+				return;
+			}
+			if (
+				body &&
+				typeof body === "object" &&
+				"pullRequest" in body &&
+				typeof body.pullRequest === "string"
+			) {
+				setOpened({
+					url: body.pullRequest,
+					number: "number" in body && typeof body.number === "number" ? body.number : 0,
+				});
+			}
+		} catch (cause) {
+			console.error("[ofa] submission failed", { cause });
+			setSendError(
+				"The submission did not complete. Try again, or copy the file and open a pull request by hand.",
+			);
+		} finally {
+			setSending(false);
+		}
+	}
 
 	async function copy() {
 		try {
@@ -255,10 +273,10 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 					/>
 					<button
 						type="submit"
-						disabled={busy || url.trim().length < 8}
+						disabled={reading || url.trim().length < 8}
 						className="h-12 shrink-0 px-5 rounded-lg bg-ink text-paper text-[15px] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity duration-150"
 					>
-						{busy ? "Reading…" : "Read the server"}
+						{reading ? "Reading…" : "Read the server"}
 					</button>
 				</div>
 				<p className="text-[13px] text-faint mt-2.5">
@@ -266,9 +284,9 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 					<span className="mono text-[12.5px]">initialize</span> and{" "}
 					<span className="mono text-[12.5px]">tools/list</span>, nothing else.
 				</p>
-				{error && (
+				{readError && (
 					<p role="alert" className="text-[14px] text-ink mt-4 border-l border-rule-strong pl-4">
-						{error}
+						{readError}
 					</p>
 				)}
 			</form>
@@ -360,7 +378,7 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 									id={ids.description}
 									value={description}
 									onChange={(e) => setDescription(e.target.value)}
-									rows={3}
+									rows={4}
 									className={`${field} resize-y leading-relaxed`}
 								/>
 							</Row>
@@ -511,50 +529,87 @@ export function SubmitForm({ vocabulary }: { vocabulary: SubmitVocabulary }) {
 
 					<section aria-labelledby="send" className="mt-14">
 						<h2 id="send" className="text-[20px]">
-							Send it for review
+							Send it
 						</h2>
-						<p className="text-[15px] text-muted mt-2 max-w-[62ch] leading-relaxed">
-							This opens an issue on the registry carrying the file below. A maintainer checks that
-							the endpoint answers and that the domain matches, then merges it as{" "}
-							<span className="mono text-[13px]">{path}</span>. Nothing is listed before that.
-						</p>
 
-						<div className="flex flex-wrap items-center gap-3 mt-6">
-							<a
-								href={complete && !tooLongForGitHub ? issueUrl : undefined}
-								aria-disabled={!complete || tooLongForGitHub}
-								target="_blank"
-								rel="noopener noreferrer"
-								className={`h-11 inline-flex items-center px-5 rounded-lg text-[15px] font-medium transition-opacity duration-150 ${
-									complete && !tooLongForGitHub
-										? "bg-ink text-paper hover:opacity-90"
-										: "bg-ink text-paper opacity-40 pointer-events-none"
-								}`}
-							>
-								Open a submission issue
-							</a>
-							<button
-								type="button"
-								onClick={copy}
-								className="h-11 px-4 rounded-lg border border-rule-strong hover:border-ink text-[15px] text-ink transition-colors duration-150"
-							>
-								{copied ? "Copied" : "Copy the file"}
-							</button>
-							{!complete && (
-								<span className="text-[13px] text-faint">
-									Fill sector, line of business, an action and two queries first.
-								</span>
-							)}
-							{complete && tooLongForGitHub && (
-								<span className="text-[13px] text-faint">
-									Too long to prefill. Copy the file and paste it into a new issue.
-								</span>
-							)}
-						</div>
+						{opened ? (
+							<div className="mt-5 border-t border-rule pt-6">
+								<p className="text-[17px] text-ink">
+									Pull request {opened.number > 0 ? `#${opened.number}` : ""} is open on the
+									registry.
+								</p>
+								<p className="text-[15px] text-muted mt-2 max-w-[62ch] leading-relaxed">
+									A maintainer checks that the endpoint answers and that the domain is yours, then
+									merges it. You will see the review on the pull request itself. Nothing is listed
+									in the index before that.
+								</p>
+								<a
+									href={opened.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center h-11 px-5 mt-5 rounded-lg bg-ink text-paper text-[15px] font-medium hover:opacity-90 transition-opacity duration-150"
+								>
+									Follow the pull request
+								</a>
+							</div>
+						) : (
+							<>
+								<p className="text-[15px] text-muted mt-2 max-w-[62ch] leading-relaxed">
+									This opens a pull request on the registry carrying the file below, as{" "}
+									<span className="mono text-[13px]">{path}</span>. You do not need a GitHub
+									account. A maintainer reviews it, and nothing is listed before they merge.
+								</p>
 
-						<pre className="mt-6 bg-fill rounded-lg p-5 overflow-x-auto mono text-[12.5px] leading-relaxed text-ink">
-							<code>{catalog}</code>
-						</pre>
+								<div className="flex flex-wrap items-center gap-3 mt-6">
+									<button
+										type="button"
+										onClick={send}
+										disabled={!complete || sending}
+										className="h-11 px-5 rounded-lg bg-ink text-paper text-[15px] font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity duration-150"
+									>
+										{sending ? "Opening…" : "Open a pull request"}
+									</button>
+									{catalog && (
+										<button
+											type="button"
+											onClick={copy}
+											className="h-11 px-4 rounded-lg border border-rule-strong hover:border-ink text-[15px] text-ink transition-colors duration-150"
+										>
+											{copied ? "Copied" : "Copy the file"}
+										</button>
+									)}
+									{!complete && (
+										<span className="text-[13px] text-faint">
+											Fill your domain, sector, line of business, an action and two queries first.
+										</span>
+									)}
+								</div>
+
+								{sendError && (
+									<p
+										role="alert"
+										className="text-[14px] text-ink mt-5 border-l border-rule-strong pl-4 max-w-[62ch] leading-relaxed"
+									>
+										{sendError}{" "}
+										<a
+											href={`${vocabulary.repo}/issues/new?title=${encodeURIComponent(`Submission: ${domain}`)}`}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-muted hover:text-ink underline underline-offset-[3px] decoration-rule-strong hover:decoration-ink"
+										>
+											Open an issue instead
+										</a>
+										.
+									</p>
+								)}
+							</>
+						)}
+
+						{catalog && (
+							<pre className="mt-6 bg-fill rounded-lg p-5 overflow-x-auto mono text-[12.5px] leading-relaxed text-ink">
+								<code>{catalog}</code>
+							</pre>
+						)}
 
 						<p className="text-[13.5px] text-faint mt-4 max-w-[62ch] leading-relaxed">
 							Prefer to keep it on your own domain? Host this file at{" "}

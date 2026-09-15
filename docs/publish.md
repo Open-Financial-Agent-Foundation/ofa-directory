@@ -4,9 +4,11 @@ Three ways in, shortest first. All of them end with your entries searchable by e
 
 ## The fastest: paste your endpoint
 
-Go to [/submit]({{SITE_URL}}/submit) and paste your MCP URL. The registry connects to it, calls `initialize` and `tools/list`, and drafts the entry from what your server says about itself: its name, its version, every tool it exposes. You fill in what an endpoint cannot tell us, which is the sector, the line of business, the countries you sell in and two to five representative queries. Then it opens a submission issue carrying the file.
+Go to [/submit]({{SITE_URL}}/submit) and paste your MCP URL. The registry connects to it, calls `initialize` and `tools/list`, and drafts the entry from what your server says about itself: its name, its version, every tool it exposes. You fill in what an endpoint cannot tell us, which is the domain you own, the sector, the line of business, the countries you sell in and two to five representative queries.
 
-A maintainer checks that the endpoint answers and that the domain matches the identifier, then merges it. Nothing appears in the index before that.
+Pressing submit opens a pull request on the registry carrying your file. You do not need a GitHub account for this. The registry re-reads your endpoint at that moment, so the capabilities in the file are what your server actually exposed, not what a form claimed.
+
+A maintainer reviews the pull request, checks that the endpoint answers and that the domain is yours, then merges. You can follow the review on the pull request itself. Nothing appears in the index before it is merged.
 
 Your endpoint has to be reachable over HTTPS without a key for this to work. If it is not, send the file by pull request instead.
 
