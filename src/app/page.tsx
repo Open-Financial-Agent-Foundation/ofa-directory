@@ -12,9 +12,9 @@ import { apiBase, SITE, siteUrl } from "@/lib/site";
 
 /** Real needs, in the languages the indexed providers speak. Ranked at request time, so the demo never lies. */
 const DEMO_QUERIES = [
-	"insurance quote for my pet and my home",
-	"devis assurance auto jeune conducteur",
 	"home insurance quote in Spain",
+	"devis assurance auto jeune conducteur",
+	"insurance quote for my pet and my home",
 	"insurance for my family: health, home, travel",
 ];
 
