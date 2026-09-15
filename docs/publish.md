@@ -72,7 +72,7 @@ The `ofa:` terms drive the facets and every country or sector filter. See [the v
 ## Validate locally
 
 ```bash
-git clone https://github.com/open-financial-agent/open-financial-agent
+git clone https://github.com/Open-Financial-Agent-Foundation/ofa-directory
 cd open-financial-agent && bun install
 bun run validate
 ```

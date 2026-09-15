@@ -30,7 +30,7 @@ One operation goes further. `context` takes a factual question, asks the matchin
 
 ## What is indexed
 
-Three origins, all plain JSON files in the [repository](https://github.com/open-financial-agent/open-financial-agent):
+Three origins, all plain JSON files in the [repository](https://github.com/Open-Financial-Agent-Foundation/ofa-directory):
 
 - **Publisher catalogs** (`registry/publishers/`): one `ai-catalog.json` per publisher domain, maintained by the publisher or a steward through pull requests.
 - **Crawled catalogs** (`registry/crawled/`): fetched from `https://<domain>/.well-known/ai-catalog.json` for every domain in `registry/sources.json`.
