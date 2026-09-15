@@ -1,0 +1,50 @@
+{
+  "specVersion": "1.0",
+  "@context": {
+    "ofa": "https://openfinancialagent.org/ns#"
+  },
+  "host": {
+    "displayName": "Armadillo",
+    "identifier": "armadillo-beta.vercel.app"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:armadillo-beta.vercel.app:agent:armadillo",
+      "displayName": "Armadillo",
+      "type": "application/mcp-server-card+json",
+      "url": "https://armadillo-beta.vercel.app/mcp",
+      "description": "Finds and shows products matching what a shopper asked for, and answers questions from the Armadillo knowledge base.",
+      "capabilities": [
+        "search",
+        "product-list",
+        "search-products"
+      ],
+      "representativeQueries": [
+        "find a product that covers my home",
+        "what does this plan include"
+      ],
+      "version": "0.0.0",
+      "ofa:sector": [
+        "insurance"
+      ],
+      "ofa:lineOfBusiness": [
+        "home"
+      ],
+      "ofa:actions": [
+        "search",
+        "faq"
+      ],
+      "ofa:country": [
+        "US"
+      ],
+      "ofa:languages": [
+        "en"
+      ],
+      "ofa:status": "live",
+      "metadata": {
+        "transport": "streamable-http",
+        "checkedAt": "2026-09-15"
+      }
+    }
+  ]
+}
