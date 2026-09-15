@@ -20,8 +20,8 @@ export async function generateMetadata({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-3 border-b border-rule">
-			<dt className="label pt-1">{label}</dt>
-			<dd className="text-[15px] min-w-0 break-words">{children}</dd>
+			<dt className="label pt-0.5">{label}</dt>
+			<dd className="text-[15px] text-ink-soft min-w-0 break-words">{children}</dd>
 		</div>
 	);
 }
@@ -38,7 +38,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 
 	return (
 		<article className="py-10 max-w-[820px]">
-			<p className="mono text-[12px] text-muted">
+			<p className="mono text-[12.5px] text-faint">
 				<Link href="/" className="hover:text-ink">
 					Index
 				</Link>
@@ -46,15 +46,19 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 				{hit.publisher}
 			</p>
 			<div className="flex flex-wrap items-center gap-3 mt-3">
-				<h1 className="text-[32px] sm:text-[40px] font-semibold">{e.displayName}</h1>
+				<h1 className="text-[32px] sm:text-[40px]">{e.displayName}</h1>
 				<StatusPill status={e["ofa:status"]} />
 				<TypeMark type={e.type} />
 			</div>
-			<p className="mono text-[13px] text-muted mt-2 break-all">{e.identifier}</p>
-			{e.description && <p className="mt-5 text-[17px] max-w-[62ch]">{e.description}</p>}
+			<p className="mono text-[13px] text-faint mt-3 break-all">{e.identifier}</p>
+			{e.description && (
+				<p className="mt-6 text-[17px] text-ink-soft max-w-[62ch] leading-relaxed">
+					{e.description}
+				</p>
+			)}
 
 			{isMcp && (
-				<section className="mt-8 bg-code rounded-xl p-5">
+				<section className="mt-8 bg-fill rounded-lg p-6">
 					<p className="label mb-3">Connect directly</p>
 					<pre className="mono text-[12.5px] overflow-x-auto">
 						<code>{`claude mcp add --transport http ${slug} ${e.url}`}</code>
@@ -112,7 +116,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 					<Field label="Capabilities">
 						<ul className="flex flex-wrap gap-1.5">
 							{e.capabilities.map((c) => (
-								<li key={c} className="mono text-[12px] bg-code px-2 py-0.5 rounded-md">
+								<li key={c} className="mono text-[12px] bg-fill px-2 py-0.5 rounded-md">
 									{c}
 								</li>
 							))}
@@ -155,7 +159,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 
 			<details className="mt-8">
 				<summary className="label cursor-pointer">Raw entry</summary>
-				<pre className="mt-3 mono text-[12px] bg-code rounded-xl p-4 overflow-x-auto">
+				<pre className="mt-3 mono text-[12px] bg-fill rounded-lg p-4 overflow-x-auto">
 					<code>{JSON.stringify(publicJson, null, 2)}</code>
 				</pre>
 			</details>

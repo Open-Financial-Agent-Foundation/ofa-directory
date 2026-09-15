@@ -23,15 +23,15 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
 	if (!isDocSlug(slug)) notFound();
 	const { html } = await renderDoc(slug, { SITE_URL: siteUrl() });
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-10 py-10">
+		<div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-14 py-12">
 			<nav aria-label="Docs" className="md:sticky md:top-6 self-start">
-				<p className="label mb-3">Documentation</p>
+				<p className="label mb-3 text-faint">Documentation</p>
 				<ul className="flex flex-col gap-1 text-[14px]">
 					{DOC_PAGES.map((p) => (
 						<li key={p.slug}>
 							<Link
 								href={`/docs/${p.slug}`}
-								className={`block py-1 ${p.slug === slug ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
+								className={`block py-1 transition-colors duration-150 ${p.slug === slug ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
 								aria-current={p.slug === slug ? "page" : undefined}
 							>
 								{p.title}

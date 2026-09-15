@@ -1,58 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { StatusPill } from "./status-pill";
-import { TypeMark } from "./type-mark";
-
-export type Row = {
-	identifier: string;
-	displayName: string;
-	description: string | null;
-	type: string;
-	url: string | null;
-	publisher: string;
-	capabilities: string[];
-	sector: string[];
-	lineOfBusiness: string[];
-	country: string[];
-	actions: string[];
-	status: string | null;
-	score: number | null;
-};
+import { EntryRow, type Row, rowFromApi } from "./entry-row";
 
 export type Facet = { field: string; label: string; buckets: { value: string; count: number }[] };
 
-const EXAMPLES = [
-	"home insurance quote in Spain",
-	"insure my dog",
-	"RC Pro auto-entrepreneur",
-	"personal loan simulation",
-	"travel insurance for Japan",
-	"financement création d'entreprise",
-];
-
-function toRow(r: Record<string, unknown>): Row {
-	const arr = (v: unknown): string[] =>
-		Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
-	const str = (v: unknown): string | null => (typeof v === "string" ? v : null);
-	return {
-		identifier: str(r.identifier) ?? "",
-		displayName: str(r.displayName) ?? "",
-		description: str(r.description),
-		type: str(r.type) ?? "",
-		url: str(r.url),
-		publisher: str(r.publisher) ?? "",
-		capabilities: arr(r.capabilities),
-		sector: arr(r["ofa:sector"]),
-		lineOfBusiness: arr(r["ofa:lineOfBusiness"]),
-		country: arr(r["ofa:country"]),
-		actions: arr(r["ofa:actions"]),
-		status: str(r["ofa:status"]),
-		score: typeof r.score === "number" ? r.score : null,
-	};
-}
-
+/** The whole index, filterable by facet. Search lives in the hero; this is the browse surface. */
 export function IndexExplorer({
 	initial,
 	facets,
@@ -62,18 +15,16 @@ export function IndexExplorer({
 	facets: Facet[];
 	total: number;
 }) {
-	const [query, setQuery] = useState("");
 	const [active, setActive] = useState<Record<string, string>>({});
 	const [rows, setRows] = useState<Row[]>(initial);
 	const [count, setCount] = useState(total);
 	const [busy, setBusy] = useState(false);
-	const inputId = useId();
 	const abort = useRef<AbortController | null>(null);
+	const headingId = useId();
 
 	useEffect(() => {
-		const text = query.trim();
-		const filter = Object.fromEntries(Object.entries(active).map(([k, v]) => [k, [v]]));
-		if (!text && Object.keys(filter).length === 0) {
+		const entries = Object.entries(active);
+		if (entries.length === 0) {
 			setRows(initial);
 			setCount(total);
 			return;
@@ -81,48 +32,34 @@ export function IndexExplorer({
 		abort.current?.abort();
 		const ctl = new AbortController();
 		abort.current = ctl;
-		const t = setTimeout(async () => {
+		(async () => {
 			setBusy(true);
 			try {
-				const res = text
-					? await fetch("/api/v1/search", {
-							method: "POST",
-							headers: { "content-type": "application/json" },
-							body: JSON.stringify({ query: { text, filter }, pageSize: 50 }),
-							signal: ctl.signal,
-						})
-					: await fetch(
-							`/api/v1/agents?pageSize=100&filter=${encodeURIComponent(
-								Object.entries(filter)
-									.map(([k, v]) => `${k}=${v.join(",")}`)
-									.join(";"),
-							)}`,
-							{ signal: ctl.signal },
-						);
+				const filter = entries.map(([k, v]) => `${k}=${v}`).join(";");
+				const res = await fetch(
+					`/api/v1/agents?pageSize=100&filter=${encodeURIComponent(filter)}`,
+					{ signal: ctl.signal },
+				);
 				const body: unknown = await res.json();
-				if (body && typeof body === "object") {
-					const list =
-						"results" in body && Array.isArray(body.results)
-							? body.results
-							: "agents" in body && Array.isArray(body.agents)
-								? body.agents
-								: [];
+				if (body && typeof body === "object" && "agents" in body && Array.isArray(body.agents)) {
 					setRows(
-						list
+						body.agents
 							.filter((x): x is Record<string, unknown> => typeof x === "object" && x !== null)
-							.map(toRow),
+							.map(rowFromApi),
 					);
-					setCount("total" in body && typeof body.total === "number" ? body.total : list.length);
+					setCount(
+						"total" in body && typeof body.total === "number" ? body.total : body.agents.length,
+					);
 				}
 			} catch (error) {
 				if (!(error instanceof DOMException && error.name === "AbortError"))
-					console.error("[ofa] search failed", { error });
+					console.error("[ofa] filter failed", { error });
 			} finally {
 				if (!ctl.signal.aborted) setBusy(false);
 			}
-		}, 160);
-		return () => clearTimeout(t);
-	}, [query, active, initial, total]);
+		})();
+		return () => ctl.abort();
+	}, [active, initial, total]);
 
 	const toggle = (field: string, value: string) =>
 		setActive((prev) => {
@@ -132,119 +69,108 @@ export function IndexExplorer({
 			return next;
 		});
 
+	const activeCount = Object.keys(active).length;
+
 	return (
-		<section aria-labelledby={`${inputId}-label`}>
-			<label id={`${inputId}-label`} htmlFor={inputId} className="label block mb-2">
-				Search the index
-			</label>
-			<div className="relative">
-				<input
-					id={inputId}
-					type="search"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-					placeholder="what does the user need? e.g. insure a flat in Madrid"
-					autoComplete="off"
-					className="w-full bg-panel border border-rule-strong rounded-xl px-5 py-4 text-[17px] placeholder:text-muted/70 focus:border-ink outline-none transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
-				/>
-				<span
-					className="absolute right-4 top-1/2 -translate-y-1/2 mono text-[12px] text-muted"
-					aria-live="polite"
-				>
-					{busy ? "searching…" : `${count} ${count === 1 ? "entry" : "entries"}`}
-				</span>
+		<section aria-labelledby={headingId}>
+			<div className="flex items-baseline justify-between gap-6 border-b border-rule pb-4">
+				<h2 id={headingId} className="text-[22px]">
+					Everything indexed
+				</h2>
+				<p className="mono text-[12.5px] text-faint" aria-live="polite">
+					{busy ? "filtering…" : `${count} of ${total}`}
+					{activeCount > 0 && (
+						<>
+							{" · "}
+							<button
+								type="button"
+								onClick={() => setActive({})}
+								className="text-muted hover:text-ink underline underline-offset-[3px] decoration-rule-strong"
+							>
+								clear
+							</button>
+						</>
+					)}
+				</p>
 			</div>
-			<div className="flex flex-wrap gap-2 mt-3">
-				{EXAMPLES.map((ex) => (
-					<button
-						key={ex}
-						type="button"
-						onClick={() => setQuery(ex)}
-						className="text-[13px] text-muted hover:text-ink bg-accent-soft hover:bg-rule rounded-full px-3 py-1.5 transition-colors"
-					>
-						{ex}
-					</button>
-				))}
-			</div>
-
-			<div className="mt-8 grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8">
-				<aside className="flex flex-col gap-6">
-					{facets.map((f) => (
-						<div key={f.field}>
-							<p className="label mb-2">{f.label}</p>
-							<ul className="flex flex-col">
-								{f.buckets.map((b) => {
-									const on = active[f.field] === b.value;
-									return (
-										<li key={b.value}>
-											<button
-												type="button"
-												onClick={() => toggle(f.field, b.value)}
-												aria-pressed={on}
-												className={`w-full flex justify-between items-baseline gap-3 py-1 text-[14px] text-left rounded-md ${on ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
-											>
-												<span className="truncate">{b.value}</span>
-												<span className="mono text-[12px] text-muted">{b.count}</span>
-											</button>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
-					))}
-				</aside>
-
+			<div className="mt-6 grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-x-12 gap-y-8">
+				<FacetPanel facets={facets} active={active} toggle={toggle} />
 				<ol className="border-t border-rule">
-					{rows.length === 0 && (
-						<li className="py-10 text-muted text-[15px]">
-							Nothing indexed matches. Broaden the query, or add the provider through a pull
-							request.
+					{rows.length === 0 && !busy && (
+						<li className="py-10 text-[15px] text-muted">
+							No entry carries every selected value. Clear a facet to widen.
 						</li>
 					)}
 					{rows.map((r) => (
-						<li key={r.identifier} className="border-b border-rule">
-							<Link
-								href={`/entry/${encodeURIComponent(r.identifier)}`}
-								className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 py-4 group"
-							>
-								<div className="min-w-0">
-									<div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-										<span className="font-medium text-[16px] text-ink">{r.displayName}</span>
-										<span className="mono text-[12px] text-muted truncate">{r.publisher}</span>
-									</div>
-									{r.description && (
-										<p className="text-[14.5px] text-muted mt-1 line-clamp-2 max-w-[62ch]">
-											{r.description}
-										</p>
-									)}
-									<div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 mono text-[12px] text-muted">
-										{r.sector.length > 0 && <span>{r.sector.join(", ")}</span>}
-										{r.lineOfBusiness.length > 0 && <span>{r.lineOfBusiness.join(", ")}</span>}
-										{r.country.length > 0 && <span>{r.country.join(" ")}</span>}
-										{r.actions.length > 0 && (
-											<span className="text-ink/80">{r.actions.join(" · ")}</span>
-										)}
-									</div>
-								</div>
-								<div className="flex flex-col items-end gap-1.5 shrink-0">
-									<div className="flex items-center gap-2">
-										<StatusPill status={r.status ?? undefined} />
-										<TypeMark type={r.type} />
-									</div>
-									{r.score !== null && (
-										<span className="mono text-[12px] text-muted">score {r.score}</span>
-									)}
-									{r.capabilities.length > 0 && (
-										<span className="mono text-[12px] text-muted">
-											{r.capabilities.length} tools
-										</span>
-									)}
-								</div>
-							</Link>
-						</li>
+						<EntryRow key={r.identifier} row={r} />
 					))}
 				</ol>
 			</div>
 		</section>
+	);
+}
+
+function FacetList({
+	facets,
+	active,
+	toggle,
+}: {
+	facets: Facet[];
+	active: Record<string, string>;
+	toggle: (field: string, value: string) => void;
+}) {
+	return (
+		<div className="flex flex-col gap-7">
+			{facets.map((f) => (
+				<div key={f.field}>
+					<p className="label mb-2">{f.label}</p>
+					<ul className="flex flex-col">
+						{f.buckets.map((b) => {
+							const on = active[f.field] === b.value;
+							return (
+								<li key={b.value}>
+									<button
+										type="button"
+										onClick={() => toggle(f.field, b.value)}
+										aria-pressed={on}
+										className={`w-full flex justify-between items-baseline gap-3 py-[5px] text-[14px] text-left transition-colors duration-150 ${on ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
+									>
+										<span className="truncate">{b.value}</span>
+										<span className={`mono text-[12px] ${on ? "text-ink" : "text-faint"}`}>
+											{b.count}
+										</span>
+									</button>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			))}
+		</div>
+	);
+}
+
+/** Facets sit in a rail on wide screens and fold into one disclosure on phones, so the index stays one scroll away. */
+function FacetPanel(props: {
+	facets: Facet[];
+	active: Record<string, string>;
+	toggle: (field: string, value: string) => void;
+}) {
+	const activeCount = Object.keys(props.active).length;
+	return (
+		<>
+			<details className="lg:hidden border-b border-rule pb-4">
+				<summary className="cursor-pointer list-none flex items-center justify-between text-[14px] font-medium text-ink py-1">
+					<span>Filter{activeCount > 0 ? ` (${activeCount})` : ""}</span>
+					<span className="mono text-[12px] text-faint">{props.facets.length} facets</span>
+				</summary>
+				<div className="mt-4">
+					<FacetList {...props} />
+				</div>
+			</details>
+			<aside className="hidden lg:block lg:sticky lg:top-24 self-start">
+				<FacetList {...props} />
+			</aside>
+		</>
 	);
 }

@@ -1,41 +1,38 @@
 @import "tailwindcss";
 
-/* Single light theme by design: white ground, near-black ink, grey hairlines, black as the only accent. */
+/* One white world. Ink and greys only; status is drawn, never coloured. */
 :root {
 	--paper: #ffffff;
 	--panel: #ffffff;
 	--ink: #0d0d0d;
+	--ink-soft: #2f2f36;
 	--muted: #6e6e80;
+	--faint: #71717f;
 	--rule: #ececf1;
 	--rule-strong: #d9d9e3;
-	--accent: #0d0d0d;
-	--accent-ink: #ffffff;
-	--accent-soft: #f4f4f5;
-	--code-bg: #f7f7f8;
-	--live: #1a7f5a;
-	--live-soft: #e9f6f0;
+	--fill: #f7f7f8;
+	--fill-hover: #f2f2f4;
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
 	--color-paper: var(--paper);
 	--color-panel: var(--panel);
 	--color-ink: var(--ink);
+	--color-ink-soft: var(--ink-soft);
 	--color-muted: var(--muted);
+	--color-faint: var(--faint);
 	--color-rule: var(--rule);
 	--color-rule-strong: var(--rule-strong);
-	--color-accent: var(--accent);
-	--color-accent-ink: var(--accent-ink);
-	--color-accent-soft: var(--accent-soft);
-	--color-code: var(--code-bg);
-	--color-live: var(--live);
-	--color-live-soft: var(--live-soft);
-	--font-display: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+	--color-fill: var(--fill);
+	--color-fill-hover: var(--fill-hover);
 	--font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
 	--font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html {
 	color-scheme: light;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -45,6 +42,10 @@ body {
 	font-size: 16px;
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: "cv11", "ss01";
+	caret-color: var(--ink);
+	accent-color: var(--ink);
 }
 
 ::selection {
@@ -55,7 +56,6 @@ body {
 h1,
 h2,
 h3 {
-	font-family: var(--font-display);
 	font-weight: 600;
 	letter-spacing: -0.025em;
 	text-wrap: balance;
@@ -65,77 +65,155 @@ h3 {
 .mono {
 	font-family: var(--font-mono);
 	font-variant-numeric: tabular-nums;
+	letter-spacing: 0;
 }
 
 .label {
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 500;
 	color: var(--muted);
-	letter-spacing: 0;
 }
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+summary:focus-visible {
 	outline: 2px solid var(--ink);
-	outline-offset: 2px;
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+/* Status, drawn in ink: a filled dot answers, a ring is a demonstration, a word is a listing. */
+.status {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 13px;
+	color: var(--muted);
+	white-space: nowrap;
+}
+.status::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	flex: none;
+}
+.status-live {
+	color: var(--ink);
+}
+.status-live::before {
+	background: var(--ink);
+}
+.status-demo::before {
+	border: 1.5px solid var(--faint);
+}
+.status-listing::before {
+	display: none;
+}
+
+/* The one authored motion: rows rise into place as a query resolves. */
+@keyframes rise {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+.rise {
+	animation: rise 560ms var(--ease-out) both;
+	animation-delay: calc(var(--i, 0) * 45ms);
+}
+@keyframes caret {
+	50% {
+		opacity: 0;
+	}
+}
+.caret::after {
+	content: "";
+	display: inline-block;
+	width: 1.5px;
+	height: 1.1em;
+	background: var(--ink);
+	margin-left: 2px;
+	vertical-align: -0.2em;
+	animation: caret 1s steps(1) infinite;
 }
 
 /* Rendered docs */
 .prose {
 	max-width: 68ch;
+	color: var(--ink-soft);
 }
 .prose h1 {
-	font-size: 2rem;
-	margin: 0 0 1rem;
+	font-size: 2.125rem;
+	margin: 0 0 1.25rem;
+	color: var(--ink);
 }
 .prose h2 {
-	font-size: 1.3rem;
-	margin: 2.5rem 0 0.75rem;
-	padding-top: 1.25rem;
-	border-top: 1px solid var(--rule);
+	font-size: 1.375rem;
+	margin: 3rem 0 0.875rem;
+	color: var(--ink);
 }
 .prose h3 {
-	font-size: 1.05rem;
-	margin: 1.75rem 0 0.5rem;
+	font-size: 1.0625rem;
+	margin: 2rem 0 0.5rem;
+	color: var(--ink);
 }
 .prose p,
 .prose ul,
 .prose ol {
-	margin: 0 0 1rem;
-	color: #2f2f2f;
+	margin: 0 0 1.125rem;
 }
 .prose ul,
 .prose ol {
 	padding-left: 1.4rem;
 }
 .prose li {
-	margin: 0.25rem 0;
+	margin: 0.3rem 0;
+}
+.prose li::marker {
+	color: var(--faint);
+}
+.prose h1 + p {
+	font-size: 1.125rem;
+	color: var(--muted);
 }
 .prose a {
 	color: var(--ink);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+	text-decoration-thickness: 1px;
 	text-decoration-color: var(--rule-strong);
+	transition: text-decoration-color 150ms var(--ease-out);
 }
 .prose a:hover {
 	text-decoration-color: var(--ink);
 }
+.prose strong {
+	color: var(--ink);
+	font-weight: 600;
+}
 .prose code {
 	font-family: var(--font-mono);
 	font-size: 0.875em;
-	background: var(--code-bg);
-	padding: 0.1em 0.4em;
+	background: var(--fill);
+	padding: 0.15em 0.4em;
 	border-radius: 6px;
+	color: var(--ink);
 }
 .prose pre {
-	background: var(--code-bg);
-	border-radius: 12px;
-	padding: 1rem 1.15rem;
+	background: var(--fill);
+	border-radius: 8px;
+	padding: 1rem 1.25rem;
 	overflow-x: auto;
-	margin: 0 0 1.25rem;
-	font-size: 0.85rem;
-	line-height: 1.55;
+	margin: 0 0 1.5rem;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: var(--ink);
 }
 .prose pre code {
 	background: none;
@@ -145,34 +223,41 @@ input:focus-visible {
 .prose table {
 	border-collapse: collapse;
 	width: 100%;
-	margin: 0 0 1.25rem;
-	font-size: 0.925rem;
+	margin: 0 0 1.5rem;
+	font-size: 0.9375rem;
 }
 .prose th,
 .prose td {
 	text-align: left;
-	padding: 0.55rem 0.6rem;
+	padding: 0.625rem 0.75rem 0.625rem 0;
 	border-bottom: 1px solid var(--rule);
 	vertical-align: top;
 }
 .prose th {
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 500;
 	color: var(--muted);
 }
+.prose td:first-child {
+	color: var(--ink);
+	white-space: nowrap;
+}
 .prose blockquote {
-	border-left: 2px solid var(--rule-strong);
-	padding-left: 1rem;
+	border-left: 1px solid var(--rule-strong);
+	padding-left: 1.25rem;
 	color: var(--muted);
-	margin: 0 0 1rem;
+	margin: 0 0 1.125rem;
 }
 .table-wrap {
 	overflow-x: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
-		transition-duration: 0.01ms;
-		animation-duration: 0.01ms;
+	html {
+		scroll-behavior: auto;
+	}
+	.rise,
+	.caret::after {
+		animation: none;
 	}
 }

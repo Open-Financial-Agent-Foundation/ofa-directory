@@ -1,16 +1,11 @@
-const STYLES: Record<string, string> = {
-	live: "bg-live-soft text-live",
-	demo: "bg-accent-soft text-muted",
-	listing: "bg-code text-muted",
+const CLASS: Record<string, string> = {
+	live: "status status-live",
+	demo: "status status-demo",
+	listing: "status status-listing",
 };
 
+/** live: the endpoint answered MCP at last check. demo: the publisher says so. listing: a directory page, no endpoint. */
 export function StatusPill({ status }: { status: string | undefined }) {
 	if (!status) return null;
-	return (
-		<span
-			className={`text-[12px] font-medium px-2 py-0.5 rounded-full ${STYLES[status] ?? STYLES.listing}`}
-		>
-			{status}
-		</span>
-	);
+	return <span className={CLASS[status] ?? CLASS.listing}>{status}</span>;
 }

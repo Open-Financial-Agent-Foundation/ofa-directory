@@ -12,7 +12,7 @@ const SHORT: Record<string, string> = {
 export function TypeMark({ type }: { type: string }) {
 	return (
 		<span
-			className="text-[12px] font-medium text-muted border border-rule px-2 py-0.5 rounded-full"
+			className="mono text-[11.5px] text-muted border border-rule-strong px-2 py-[3px] rounded-full leading-none"
 			title={type}
 		>
 			{SHORT[type] ?? type}
