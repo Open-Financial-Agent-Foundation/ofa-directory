@@ -1,5 +1,6 @@
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
+import { lookup as dnsLookup } from "node:dns/promises";
+import { Agent, request } from "node:https";
+import { isIP, type LookupFunction } from "node:net";
 
 /**
  * The submission form asks this server to open a connection to a URL a stranger typed,
@@ -65,8 +66,15 @@ export function isBlockedAddress(address: string): boolean {
 
 export class BlockedUrlError extends Error {}
 
-/** Parses and vets a URL a visitor supplied, resolving its hostname before anything connects. */
-export async function assertPublicUrl(raw: string): Promise<URL> {
+export type VettedTarget = { url: URL; addresses: { address: string; family: number }[] };
+
+/**
+ * Parses and vets a URL a visitor supplied, and hands back the addresses it resolved to.
+ * Those addresses are what the connection is pinned to: checking a hostname and then letting
+ * the socket resolve it again leaves the attacker's own DNS free to answer differently the
+ * second time, which is how a vetted domain becomes a connection to the metadata service.
+ */
+export async function assertPublicUrl(raw: string): Promise<VettedTarget> {
 	let url: URL;
 	try {
 		url = new URL(raw);
@@ -82,71 +90,160 @@ export async function assertPublicUrl(raw: string): Promise<URL> {
 		throw new BlockedUrlError("Remove the credentials from the URL.");
 	}
 
-	const host = url.hostname;
+	// `URL` keeps the brackets on an IPv6 literal, and `isIP` does not accept them.
+	const host = url.hostname.replace(/^\[|\]$/g, "");
 	if (isIP(host) !== 0) {
 		if (isBlockedAddress(host))
 			throw new BlockedUrlError("That address is not reachable from the public internet.");
-		return url;
+		return { url, addresses: [{ address: host, family: isIP(host) }] };
 	}
 	if (!host.includes(".") || host.endsWith(".localhost")) {
 		throw new BlockedUrlError("Use a public domain name.");
 	}
 
-	let addresses: { address: string }[];
+	let resolved: { address: string; family: number }[];
 	try {
-		addresses = await lookup(host, { all: true });
+		resolved = await dnsLookup(host, { all: true });
 	} catch {
 		throw new BlockedUrlError(`No DNS record for ${host}.`);
 	}
-	if (addresses.length === 0 || addresses.some((a) => isBlockedAddress(a.address))) {
+	if (resolved.length === 0 || resolved.some((a) => isBlockedAddress(a.address))) {
 		throw new BlockedUrlError(
 			"That host resolves to an address that is not reachable from the public internet.",
 		);
 	}
-	return url;
+	return { url, addresses: resolved };
 }
 
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 
+/** Answers every resolution with the addresses already vetted, so the socket cannot be redirected by DNS. */
+function pinnedLookup(addresses: { address: string; family: number }[]): LookupFunction {
+	const first = addresses[0];
+	return (_hostname, options, callback) => {
+		if (!first) {
+			callback(new BlockedUrlError("No vetted address for that host."), "", 0);
+			return;
+		}
+		if (typeof options === "object" && options?.all) {
+			callback(null, addresses);
+			return;
+		}
+		callback(null, first.address, first.family);
+	};
+}
+
+async function bodyToBuffer(body: BodyInit | null | undefined): Promise<Buffer | undefined> {
+	if (body === null || body === undefined) return undefined;
+	if (typeof body === "string") return Buffer.from(body, "utf8");
+	return Buffer.from(await new Response(body).arrayBuffer());
+}
+
 /**
- * A `fetch` for the MCP client that re-vets every request it makes, refuses redirects
- * (a redirect is how a vetted host hands the connection to an unvetted one) and caps
- * how much a stranger's server can stream back.
+ * A `fetch` for the MCP client that vets the host on every request and then connects only to the
+ * addresses that vetting returned. Redirects are never followed: a redirect is how a vetted host
+ * hands the connection to an unvetted one. The TLS name stays the hostname, so the certificate is
+ * still checked against the domain the publisher gave us.
  */
 export function guardedFetch(
 	timeoutMs: number,
 ): (url: string | URL, init?: RequestInit) => Promise<Response> {
-	return async (url, init) => {
-		const vetted = await assertPublicUrl(typeof url === "string" ? url : url.toString());
-		const response = await fetch(vetted, {
-			...init,
-			redirect: "error",
-			signal: init?.signal ?? AbortSignal.timeout(timeoutMs),
+	return async (target, init) => {
+		const { url, addresses } = await assertPublicUrl(
+			typeof target === "string" ? target : target.toString(),
+		);
+		const payload = await bodyToBuffer(init?.body);
+		const headers = new Headers(init?.headers);
+		const outgoing: Record<string, string> = {};
+		headers.forEach((value, key) => {
+			outgoing[key] = value;
 		});
+		if (payload) outgoing["content-length"] = String(payload.byteLength);
 
-		const declared = Number(response.headers.get("content-length") ?? "0");
-		if (declared > MAX_RESPONSE_BYTES) {
-			throw new BlockedUrlError("The server's response is too large to read.");
-		}
-		if (!response.body) return response;
+		const agent = new Agent({ lookup: pinnedLookup(addresses), keepAlive: false, maxSockets: 1 });
 
-		let seen = 0;
-		const capped = response.body.pipeThrough(
-			new TransformStream<Uint8Array, Uint8Array>({
-				transform(chunk, controller) {
-					seen += chunk.byteLength;
-					if (seen > MAX_RESPONSE_BYTES) {
-						controller.error(new BlockedUrlError("The server's response is too large to read."));
+		return await new Promise<Response>((resolve, reject) => {
+			const req = request(
+				{
+					protocol: url.protocol,
+					hostname: url.hostname,
+					port: url.port || 443,
+					path: `${url.pathname}${url.search}`,
+					method: init?.method ?? "GET",
+					headers: outgoing,
+					servername: url.hostname,
+					agent,
+				},
+				(res) => {
+					const declared = Number(res.headers["content-length"] ?? "0");
+					if (declared > MAX_RESPONSE_BYTES) {
+						res.destroy();
+						agent.destroy();
+						reject(new BlockedUrlError("The server's response is too large to read."));
 						return;
 					}
-					controller.enqueue(chunk);
+
+					const responseHeaders = new Headers();
+					for (const [key, value] of Object.entries(res.headers)) {
+						if (value === undefined) continue;
+						for (const one of Array.isArray(value) ? value : [value])
+							responseHeaders.append(key, one);
+					}
+
+					// Built by hand rather than through `Readable.toWeb` so the byte cap lives on the same
+					// path as the data, and so the stream is the one a Response actually takes.
+					let seen = 0;
+					const body = new ReadableStream<Uint8Array>({
+						start(controller) {
+							res.on("data", (chunk: Buffer) => {
+								seen += chunk.byteLength;
+								if (seen > MAX_RESPONSE_BYTES) {
+									const tooBig = new BlockedUrlError("The server's response is too large to read.");
+									controller.error(tooBig);
+									res.destroy(tooBig);
+									return;
+								}
+								controller.enqueue(new Uint8Array(chunk));
+							});
+							res.on("end", () => {
+								try {
+									controller.close();
+								} catch {
+									// already errored by the cap
+								}
+							});
+							res.on("error", (error) => controller.error(error));
+						},
+						cancel() {
+							res.destroy();
+						},
+					});
+					res.on("close", () => agent.destroy());
+
+					resolve(
+						new Response(body, {
+							status: res.statusCode ?? 502,
+							statusText: res.statusMessage ?? "",
+							headers: responseHeaders,
+						}),
+					);
 				},
-			}),
-		);
-		return new Response(capped, {
-			status: response.status,
-			statusText: response.statusText,
-			headers: response.headers,
+			);
+
+			req.setTimeout(timeoutMs, () =>
+				req.destroy(new BlockedUrlError("The endpoint did not answer in time.")),
+			);
+			req.on("error", (error) => {
+				agent.destroy();
+				reject(error);
+			});
+			init?.signal?.addEventListener(
+				"abort",
+				() => req.destroy(new BlockedUrlError("The request was cancelled.")),
+				{ once: true },
+			);
+			if (payload) req.write(payload);
+			req.end();
 		});
 	};
 }

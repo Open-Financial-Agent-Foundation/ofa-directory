@@ -196,7 +196,7 @@ export class IntrospectError extends Error {}
  * the publisher's own text, unverified, and exists to be edited before it reaches the registry.
  */
 export async function introspect(rawUrl: string): Promise<Draft> {
-	const url = await assertPublicUrl(rawUrl);
+	const { url } = await assertPublicUrl(rawUrl);
 	const client = new Client({ name: "open-financial-agent-submit", version: "0.1.0" });
 	try {
 		const transport = new StreamableHTTPClientTransport(url, { fetch: guardedFetch(TIMEOUT_MS) });
