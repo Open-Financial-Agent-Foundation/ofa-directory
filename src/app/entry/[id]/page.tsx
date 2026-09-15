@@ -46,7 +46,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 				{hit.publisher}
 			</p>
 			<div className="flex flex-wrap items-center gap-3 mt-3">
-				<h1 className="text-[30px] sm:text-[38px] font-bold">{e.displayName}</h1>
+				<h1 className="text-[32px] sm:text-[40px] font-semibold">{e.displayName}</h1>
 				<StatusPill status={e["ofa:status"]} />
 				<TypeMark type={e.type} />
 			</div>
@@ -54,7 +54,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 			{e.description && <p className="mt-5 text-[17px] max-w-[62ch]">{e.description}</p>}
 
 			{isMcp && (
-				<section className="mt-8 bg-panel border border-rule rounded-[4px] p-5">
+				<section className="mt-8 bg-code rounded-xl p-5">
 					<p className="label mb-3">Connect directly</p>
 					<pre className="mono text-[12.5px] overflow-x-auto">
 						<code>{`claude mcp add --transport http ${slug} ${e.url}`}</code>
@@ -69,7 +69,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 				</section>
 			)}
 
-			<dl className="mt-8 border-t border-rule-strong">
+			<dl className="mt-8 border-t border-rule">
 				<Field label="Publisher">
 					<span className="mono">{hit.publisher}</span> · {hit.host.displayName}
 					{hit.host.documentationUrl && (
@@ -77,7 +77,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 							{" · "}
 							<a
 								href={hit.host.documentationUrl}
-								className="text-accent underline underline-offset-[3px]"
+								className="text-ink underline underline-offset-[3px] decoration-rule-strong hover:decoration-ink"
 								rel="noopener"
 							>
 								{hit.host.documentationUrl.replace(/^https?:\/\//, "")}
@@ -92,7 +92,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 					<Field label="URL">
 						<a
 							href={e.url}
-							className="mono text-[13px] text-accent underline underline-offset-[3px] break-all"
+							className="mono text-[13px] text-ink underline underline-offset-[3px] decoration-rule-strong hover:decoration-ink break-all"
 							rel="noopener"
 						>
 							{e.url}
@@ -112,7 +112,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 					<Field label="Capabilities">
 						<ul className="flex flex-wrap gap-1.5">
 							{e.capabilities.map((c) => (
-								<li key={c} className="mono text-[12px] bg-code px-1.5 py-0.5 rounded-[3px]">
+								<li key={c} className="mono text-[12px] bg-code px-2 py-0.5 rounded-md">
 									{c}
 								</li>
 							))}
@@ -138,7 +138,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 				<Field label="Source">
 					<a
 						href={`${SITE.repo}/blob/main/registry/${hit.sourceFile}`}
-						className="mono text-[13px] text-accent underline underline-offset-[3px]"
+						className="mono text-[13px] text-ink underline underline-offset-[3px] decoration-rule-strong hover:decoration-ink"
 						rel="noopener"
 					>
 						registry/{hit.sourceFile}
@@ -146,7 +146,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 					{" · "}
 					<a
 						href={`${siteUrl()}/api/v1/entries/${encodeURIComponent(e.identifier)}`}
-						className="mono text-[13px] text-accent underline underline-offset-[3px]"
+						className="mono text-[13px] text-ink underline underline-offset-[3px] decoration-rule-strong hover:decoration-ink"
 					>
 						JSON
 					</a>
@@ -155,7 +155,7 @@ export default async function EntryPage({ params }: { params: Promise<{ id: stri
 
 			<details className="mt-8">
 				<summary className="label cursor-pointer">Raw entry</summary>
-				<pre className="mt-3 mono text-[12px] bg-code border border-rule rounded-[4px] p-4 overflow-x-auto">
+				<pre className="mt-3 mono text-[12px] bg-code rounded-xl p-4 overflow-x-auto">
 					<code>{JSON.stringify(publicJson, null, 2)}</code>
 				</pre>
 			</details>

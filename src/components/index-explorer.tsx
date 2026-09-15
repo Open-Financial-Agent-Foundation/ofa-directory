@@ -145,7 +145,7 @@ export function IndexExplorer({
 					onChange={(e) => setQuery(e.target.value)}
 					placeholder="what does the user need? e.g. insure a flat in Madrid"
 					autoComplete="off"
-					className="w-full bg-panel border border-rule-strong rounded-[4px] px-4 py-3.5 text-[17px] placeholder:text-muted/70 focus:border-accent outline-none transition-colors"
+					className="w-full bg-panel border border-rule-strong rounded-xl px-5 py-4 text-[17px] placeholder:text-muted/70 focus:border-ink outline-none transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
 				/>
 				<span
 					className="absolute right-4 top-1/2 -translate-y-1/2 mono text-[12px] text-muted"
@@ -160,7 +160,7 @@ export function IndexExplorer({
 						key={ex}
 						type="button"
 						onClick={() => setQuery(ex)}
-						className="mono text-[12px] text-muted hover:text-ink border border-rule hover:border-rule-strong rounded-full px-2.5 py-1 transition-colors"
+						className="text-[13px] text-muted hover:text-ink bg-accent-soft hover:bg-rule rounded-full px-3 py-1.5 transition-colors"
 					>
 						{ex}
 					</button>
@@ -181,10 +181,10 @@ export function IndexExplorer({
 												type="button"
 												onClick={() => toggle(f.field, b.value)}
 												aria-pressed={on}
-												className={`w-full flex justify-between items-baseline gap-3 py-1 text-[14px] border-l-2 pl-2.5 text-left ${on ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}
+												className={`w-full flex justify-between items-baseline gap-3 py-1 text-[14px] text-left rounded-md ${on ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
 											>
 												<span className="truncate">{b.value}</span>
-												<span className="mono text-[12px]">{b.count}</span>
+												<span className="mono text-[12px] text-muted">{b.count}</span>
 											</button>
 										</li>
 									);
@@ -194,7 +194,7 @@ export function IndexExplorer({
 					))}
 				</aside>
 
-				<ol className="border-t border-rule-strong">
+				<ol className="border-t border-rule">
 					{rows.length === 0 && (
 						<li className="py-10 text-muted text-[15px]">
 							Nothing indexed matches. Broaden the query, or add the provider through a pull
@@ -209,9 +209,7 @@ export function IndexExplorer({
 							>
 								<div className="min-w-0">
 									<div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-										<span className="font-[family-name:var(--font-display)] font-semibold text-[17px] text-ink group-hover:text-accent transition-colors">
-											{r.displayName}
-										</span>
+										<span className="font-medium text-[16px] text-ink">{r.displayName}</span>
 										<span className="mono text-[12px] text-muted truncate">{r.publisher}</span>
 									</div>
 									{r.description && (

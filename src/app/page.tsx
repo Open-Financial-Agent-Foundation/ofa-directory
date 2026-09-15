@@ -53,13 +53,13 @@ export default function Home() {
 	return (
 		<div className="py-12 sm:py-16">
 			<section className="max-w-[720px]">
-				<h1 className="text-[34px] sm:text-[44px] font-bold text-ink">{SITE.tagline}</h1>
+				<h1 className="text-[36px] sm:text-[48px] font-semibold text-ink">{SITE.tagline}</h1>
 				<p className="mt-5 text-[17px] text-muted max-w-[60ch]">
 					Insurers, banks, lenders and public financiers publish what their agents can do. Personal
 					agents ask one place who can quote, compare, explain or apply, then connect to the
 					provider directly. Conforms to Agentic Resource Discovery, open under Apache-2.0.
 				</p>
-				<dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4 border-t border-rule-strong pt-5">
+				<dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-4 border-t border-rule pt-5">
 					{[
 						{ k: "Entries", v: registry.entries.length },
 						{ k: "Live endpoints", v: live },
@@ -72,7 +72,7 @@ export default function Home() {
 						</div>
 					))}
 				</dl>
-				<pre className="mt-6 mono text-[12.5px] text-muted bg-code border border-rule rounded-[4px] px-4 py-3 overflow-x-auto">
+				<pre className="mt-6 mono text-[12.5px] text-ink bg-code rounded-xl px-4 py-3 overflow-x-auto">
 					<code>{`claude mcp add --transport http ofa ${siteUrl()}/mcp`}</code>
 				</pre>
 			</section>

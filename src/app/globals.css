@@ -1,50 +1,19 @@
 @import "tailwindcss";
 
+/* Single light theme by design: white ground, near-black ink, grey hairlines, black as the only accent. */
 :root {
-	--paper: #f5f6f8;
+	--paper: #ffffff;
 	--panel: #ffffff;
-	--ink: #14171c;
-	--muted: #5f6774;
-	--rule: #dadde3;
-	--rule-strong: #b9bec8;
-	--accent: #7a1f2b;
+	--ink: #0d0d0d;
+	--muted: #6e6e80;
+	--rule: #ececf1;
+	--rule-strong: #d9d9e3;
+	--accent: #0d0d0d;
 	--accent-ink: #ffffff;
-	--accent-soft: #f4e4e7;
-	--code-bg: #eceef2;
-	--live: #1f6f4a;
-	--live-soft: #e2f1e8;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root:not([data-theme="light"]) {
-		--paper: #121419;
-		--panel: #191c23;
-		--ink: #e8eaee;
-		--muted: #98a0ad;
-		--rule: #2a2f39;
-		--rule-strong: #3a404c;
-		--accent: #e2808d;
-		--accent-ink: #1a0d10;
-		--accent-soft: #2a1b1f;
-		--code-bg: #1f232c;
-		--live: #6cc79a;
-		--live-soft: #17301f;
-	}
-}
-
-:root[data-theme="dark"] {
-	--paper: #121419;
-	--panel: #191c23;
-	--ink: #e8eaee;
-	--muted: #98a0ad;
-	--rule: #2a2f39;
-	--rule-strong: #3a404c;
-	--accent: #e2808d;
-	--accent-ink: #1a0d10;
-	--accent-soft: #2a1b1f;
-	--code-bg: #1f232c;
-	--live: #6cc79a;
-	--live-soft: #17301f;
+	--accent-soft: #f4f4f5;
+	--code-bg: #f7f7f8;
+	--live: #1a7f5a;
+	--live-soft: #e9f6f0;
 }
 
 @theme inline {
@@ -60,14 +29,13 @@
 	--color-code: var(--code-bg);
 	--color-live: var(--live);
 	--color-live-soft: var(--live-soft);
-	--font-display: var(--font-archivo), "Archivo", "Helvetica Neue", Arial, sans-serif;
-	--font-body: var(--font-plex-sans), "IBM Plex Sans", system-ui, sans-serif;
-	--font-mono:
-		var(--font-plex-mono), "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+	--font-display: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+	--font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+	--font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html {
-	color-scheme: light dark;
+	color-scheme: light;
 }
 
 body {
@@ -80,15 +48,16 @@ body {
 }
 
 ::selection {
-	background: var(--accent);
-	color: var(--accent-ink);
+	background: var(--ink);
+	color: var(--paper);
 }
 
 h1,
 h2,
 h3 {
 	font-family: var(--font-display);
-	letter-spacing: -0.02em;
+	font-weight: 600;
+	letter-spacing: -0.025em;
 	text-wrap: balance;
 	line-height: 1.1;
 }
@@ -99,17 +68,16 @@ h3 {
 }
 
 .label {
-	font-family: var(--font-mono);
-	font-size: 11px;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 500;
 	color: var(--muted);
+	letter-spacing: 0;
 }
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-	outline: 2px solid var(--accent);
+	outline: 2px solid var(--ink);
 	outline-offset: 2px;
 }
 
@@ -122,9 +90,9 @@ input:focus-visible {
 	margin: 0 0 1rem;
 }
 .prose h2 {
-	font-size: 1.35rem;
+	font-size: 1.3rem;
 	margin: 2.5rem 0 0.75rem;
-	padding-top: 1rem;
+	padding-top: 1.25rem;
 	border-top: 1px solid var(--rule);
 }
 .prose h3 {
@@ -135,6 +103,7 @@ input:focus-visible {
 .prose ul,
 .prose ol {
 	margin: 0 0 1rem;
+	color: #2f2f2f;
 }
 .prose ul,
 .prose ol {
@@ -144,22 +113,25 @@ input:focus-visible {
 	margin: 0.25rem 0;
 }
 .prose a {
-	color: var(--accent);
+	color: var(--ink);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+	text-decoration-color: var(--rule-strong);
+}
+.prose a:hover {
+	text-decoration-color: var(--ink);
 }
 .prose code {
 	font-family: var(--font-mono);
 	font-size: 0.875em;
 	background: var(--code-bg);
-	padding: 0.1em 0.35em;
-	border-radius: 3px;
+	padding: 0.1em 0.4em;
+	border-radius: 6px;
 }
 .prose pre {
 	background: var(--code-bg);
-	border: 1px solid var(--rule);
-	border-radius: 4px;
-	padding: 0.9rem 1rem;
+	border-radius: 12px;
+	padding: 1rem 1.15rem;
 	overflow-x: auto;
 	margin: 0 0 1.25rem;
 	font-size: 0.85rem;
@@ -179,20 +151,17 @@ input:focus-visible {
 .prose th,
 .prose td {
 	text-align: left;
-	padding: 0.5rem 0.6rem;
+	padding: 0.55rem 0.6rem;
 	border-bottom: 1px solid var(--rule);
 	vertical-align: top;
 }
 .prose th {
-	font-family: var(--font-mono);
-	font-size: 11px;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--muted);
+	font-size: 12px;
 	font-weight: 500;
+	color: var(--muted);
 }
 .prose blockquote {
-	border-left: 3px solid var(--accent);
+	border-left: 2px solid var(--rule-strong);
 	padding-left: 1rem;
 	color: var(--muted);
 	margin: 0 0 1rem;

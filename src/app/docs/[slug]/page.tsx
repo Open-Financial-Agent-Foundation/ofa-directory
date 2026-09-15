@@ -31,7 +31,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
 						<li key={p.slug}>
 							<Link
 								href={`/docs/${p.slug}`}
-								className={`block py-1 border-l-2 pl-3 ${p.slug === slug ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}
+								className={`block py-1 ${p.slug === slug ? "text-ink font-medium" : "text-muted hover:text-ink"}`}
 								aria-current={p.slug === slug ? "page" : undefined}
 							>
 								{p.title}

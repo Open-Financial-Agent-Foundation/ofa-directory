@@ -11,10 +11,10 @@ const NAV = [
 export function SiteHeader() {
 	return (
 		<header className="border-b border-rule">
-			<div className="max-w-[1040px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-6">
+			<div className="max-w-[1040px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6">
 				<Link href="/" className="flex items-baseline gap-3 no-underline">
-					<span className="font-[family-name:var(--font-display)] font-bold text-[19px] tracking-tight text-ink">
-						Open Financial <span className="text-accent">Agent</span>
+					<span className="font-semibold text-[17px] tracking-tight text-ink">
+						Open Financial Agent
 					</span>
 					<span className="label hidden sm:inline">v0 · {SITE.specVersion}</span>
 				</Link>
