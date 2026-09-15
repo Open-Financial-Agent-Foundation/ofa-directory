@@ -1,24 +1,56 @@
 {
   "specVersion": "1.0",
-  "@context": { "ofa": "https://openfinancialagent.org/ns#" },
-  "host": { "displayName": "Lassie", "identifier": "lassie.co", "documentationUrl": "https://lassie.co" },
+  "@context": {
+    "ofa": "https://openfinancialagent.org/ns#"
+  },
+  "host": {
+    "displayName": "Lassie",
+    "identifier": "lassie.co"
+  },
   "entries": [
     {
-      "identifier": "urn:air:lassie.co:agent:pet-insurance",
-      "displayName": "Lassie pet insurance",
+      "identifier": "urn:air:lassie.co:agent:lassie",
+      "displayName": "Lassie",
       "type": "application/mcp-server-card+json",
       "url": "https://v1.lassie.mcp.waniwani.run/mcp",
-      "description": "Quotes Lassie pet insurance for dogs and cats and answers questions about coverage, waiting periods, plans, pricing and cancellation.",
-      "tags": ["insurance", "pet", "quote", "faq"],
-      "capabilities": ["lassie-quote", "faq", "show-pricing", "show-pet-summary"],
-      "representativeQueries": [
-        "insure my dog with Lassie",
-        "how much is pet insurance for a 3 year old cat",
-        "what is the waiting period on Lassie plans",
-        "cancel my pet insurance"
+      "description": "Quotes pet insurance for dogs and cats in Sweden and answers questions about coverage, waiting periods, plans, pricing and cancellation.",
+      "capabilities": [
+        "show-pet-summary",
+        "show-pricing",
+        "faq",
+        "lassie-quote"
       ],
-      "ofa:sector": ["insurance"], "ofa:lineOfBusiness": ["pet"], "ofa:actions": ["quote", "faq"],
-      "ofa:country": ["SE"], "ofa:languages": ["en"], "ofa:status": "live", "ofa:hostedBy": "waniwani.ai", "metadata": {"steward": "waniwani.ai", "transport": "streamable-http", "auth": "none", "protocolVersion": "2025-06-18", "lastCheckedAt": "2026-09-14"}
+      "representativeQueries": [
+        "insure my dog",
+        "how much is pet insurance for a cat",
+        "what is the waiting period"
+      ],
+      "version": "0.1.0",
+      "ofa:sector": [
+        "insurance"
+      ],
+      "ofa:lineOfBusiness": [
+        "pet"
+      ],
+      "ofa:role": [
+        "broker"
+      ],
+      "ofa:actions": [
+        "quote",
+        "faq"
+      ],
+      "ofa:country": [
+        "SE"
+      ],
+      "ofa:languages": [
+        "en"
+      ],
+      "ofa:hostedBy": "v1.lassie.mcp.waniwani.run",
+      "ofa:status": "live",
+      "metadata": {
+        "transport": "streamable-http",
+        "checkedAt": "2026-09-15"
+      }
     }
   ]
 }
