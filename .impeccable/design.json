@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T19:40:00Z",
+  "title": "Design System: Open Financial Agent",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#ffffff"] },
+      "ink": { "role": "primary", "displayName": "Ink", "canonical": "#0d0d0d", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "ink-soft": { "role": "neutral", "displayName": "Ink Soft", "canonical": "#2f2f36", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "muted": { "role": "neutral", "displayName": "Muted", "canonical": "#6e6e80", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "faint": { "role": "neutral", "displayName": "Faint", "canonical": "#71717f", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "#ececf1", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "rule-strong": { "role": "neutral", "displayName": "Rule Strong", "canonical": "#d9d9e3", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "fill": { "role": "neutral", "displayName": "Fill", "canonical": "#f7f7f8", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] },
+      "fill-hover": { "role": "neutral", "displayName": "Fill Hover", "canonical": "#f2f2f4", "tonalRamp": ["#0d0d0d", "#2f2f36", "#4a4a55", "#6e6e80", "#8f8f9c", "#b4b4be", "#d9d9e3", "#f7f7f8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The home headline (40px on phones, 52px from 640px, max 24ch). Entry titles at 32/40px and docs titles at 34px share the weight, tracking and line-height." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings and docs h2." },
+      "title": { "displayName": "Title", "purpose": "Step titles in the ruled list and docs h3." },
+      "lead": { "displayName": "Lead", "purpose": "The one sentence under the home headline and the first paragraph after a docs h1. Muted, max 56ch." },
+      "body": { "displayName": "Body", "purpose": "Base text. Entry descriptions at 17px Ink Soft, step bodies at 15.5px Muted, definition values at 15px." },
+      "small": { "displayName": "Small", "purpose": "The one-line description inside a ranked row. Muted, truncated in the hero, two lines in the index." },
+      "label": { "displayName": "Label", "purpose": "Definition terms, facet group names, rail titles, table headers. Never uppercase, never tracked." },
+      "mono": { "displayName": "Mono", "purpose": "Identifiers, media types, commands, counts and scores. Tabular figures, 12px to 13.5px." },
+      "mono-fine": { "displayName": "Mono Fine", "purpose": "Publisher domains, facet counts, the field hint, the type mark (11.5px)." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The one easing. Used by .rise and by every 150ms colour transition on links, borders and underlines." },
+      { "name": "rise", "value": "opacity 0 → 1, translateY(6px) → none, 560ms var(--ease-out) both, animation-delay calc(var(--i, 0) * 45ms)", "purpose": "Ranked rows rise into place when a query resolves. Each row sets --i to its index for a 45ms stagger. Removed under prefers-reduced-motion: reduce." },
+      { "name": "caret", "value": "opacity 50% keyframe, 1s steps(1) infinite, 1.5px wide, 1.1em tall, ink", "purpose": "The demo caret in the search field overlay. Removed under prefers-reduced-motion: reduce." },
+      { "name": "transition-colors", "value": "150ms var(--ease-out) on color, border-color, text-decoration-color", "purpose": "Hover and focus state changes on links, nav, facet buttons, the search field border and the copy button border." },
+      { "name": "demo-typing", "value": "34ms per character, 320ms lead-in, 180ms settle, 3200ms hold between needs", "purpose": "The hero types four real needs in turn and re-ranks the rows. Stops on the first focus or pointer-down; never starts under reduced motion." }
+    ],
+    "focus": { "value": "outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px", "appliesTo": "a, button, input, summary via :focus-visible" },
+    "selection": { "value": "background: var(--ink); color: var(--paper)" },
+    "caretColor": "var(--ink)",
+    "hoverFill": { "value": "var(--fill-hover)", "appliesTo": "The whole ranked row link, 8px radius, bleeding 12px past the text column (-mx-3 px-3)." },
+    "borders": [
+      { "name": "hairline", "value": "1px solid var(--rule)", "purpose": "Header and footer edges, row dividers, definition rows, table rows." },
+      { "name": "edge", "value": "1px solid var(--rule-strong)", "purpose": "Search field, type mark, copy button, blockquote bar, link underline at rest." },
+      { "name": "status-ring", "value": "1.5px solid var(--faint)", "purpose": "The demo status mark." }
+    ],
+    "breakpoints": [
+      { "name": "wordmark", "value": "420px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ],
+    "layout": {
+      "container": "1120px",
+      "gutter": "24px",
+      "readingColumns": { "hero": "760px", "entry": "820px", "prose": "68ch" },
+      "header": "64px sticky, hairline below",
+      "rails": { "index": "200px, gap 48px, sticky top 96px, from 1024px", "docs": "220px, gap 56px, sticky top 24px, from 768px", "definition": "180px label column from 640px" },
+      "sectionGap": "128px to 144px",
+      "rowPadding": { "compact": "14px", "index": "16px", "definition": "12px" }
+    },
+    "theme": "light only; color-scheme: light; no dark palette exists"
+  },
+  "components": [
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "The one field. 56px, 12px radius, 1px edge border that turns ink on focus, search glyph in Faint, mono count hint right.",
+      "html": "<div class=\"ds-search\"><svg class=\"ds-search-icon\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.5\"/><path d=\"M10.5 10.5 14 14\"/></svg><input class=\"ds-search-input\" type=\"search\" placeholder=\"Describe what the user needs\" aria-label=\"Search the index\"><span class=\"ds-search-hint\">15 entries</span></div>",
+      "css": ".ds-search { position: relative; max-width: 760px; font-family: var(--font-inter), Inter, system-ui, sans-serif; } .ds-search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--faint, #71717f); pointer-events: none; } .ds-search-input { width: 100%; height: 56px; background: var(--paper, #fff); color: var(--ink, #0d0d0d); border: 1px solid var(--rule-strong, #d9d9e3); border-radius: 12px; padding: 0 112px 0 48px; font: inherit; font-size: 17px; outline: none; transition: border-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-search-input::placeholder { color: var(--faint, #71717f); } .ds-search-input:focus { border-color: var(--ink, #0d0d0d); } .ds-search-input:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; } .ds-search-hint { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 12px; color: var(--faint, #71717f); }"
+    },
+    {
+      "name": "Ranked Row",
+      "kind": "custom",
+      "refersTo": "entry-row",
+      "description": "A ruled register line: name, publisher domain in mono, one-line description, tabular score right. Lead row's score in ink. Hover fills the whole row.",
+      "html": "<ol class=\"ds-rows\"><li class=\"ds-row ds-rise\" style=\"--i:0\"><a class=\"ds-row-link\" href=\"#\"><div class=\"ds-row-main\"><div class=\"ds-row-head\"><span class=\"ds-row-name\">Lassie pet insurance</span><span class=\"ds-row-pub\">lassie.co</span></div><p class=\"ds-row-desc\">Quotes Lassie pet insurance for dogs and cats and answers questions about cover.</p></div><span class=\"ds-row-score ds-row-score-lead\">94</span></a></li><li class=\"ds-row ds-rise\" style=\"--i:1\"><a class=\"ds-row-link\" href=\"#\"><div class=\"ds-row-main\"><div class=\"ds-row-head\"><span class=\"ds-row-name\">Tuio pet care</span><span class=\"ds-row-pub\">tuio.com</span></div><p class=\"ds-row-desc\">Pet care assistant backed by a 196-article knowledge base.</p></div><span class=\"ds-row-score\">90</span></a></li></ol>",
+      "css": ".ds-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule, #ececf1); font-family: var(--font-inter), Inter, system-ui, sans-serif; } .ds-row { border-bottom: 1px solid var(--rule, #ececf1); } .ds-row-link { display: grid; grid-template-columns: 1fr auto; align-items: start; column-gap: 32px; margin: 0 -12px; padding: 14px 12px; border-radius: 8px; color: inherit; text-decoration: none; transition: background-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-row-link:hover { background: var(--fill-hover, #f2f2f4); } .ds-row-link:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; } .ds-row-main { min-width: 0; } .ds-row-head { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; } .ds-row-name { font-weight: 500; font-size: 16px; line-height: 24px; color: var(--ink, #0d0d0d); } .ds-row-pub { font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-size: 12px; color: var(--faint, #71717f); } .ds-row-desc { margin: 2px 0 0; font-size: 14.5px; color: var(--muted, #6e6e80); max-width: 64ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-row-score { font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 13px; width: 32px; text-align: right; padding-top: 4px; color: var(--faint, #71717f); } .ds-row-score-lead { color: var(--ink, #0d0d0d); } @keyframes ds-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } } .ds-rise { animation: ds-rise 560ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 45ms); } @media (prefers-reduced-motion: reduce) { .ds-rise { animation: none; } }"
+    },
+    {
+      "name": "Status Marks",
+      "kind": "chip",
+      "refersTo": "status-mark",
+      "description": "Status drawn in ink: filled dot for live (word in ink), 1.5px Faint ring for demo, bare word for listing.",
+      "html": "<span class=\"ds-status ds-status-live\">live</span> <span class=\"ds-status ds-status-demo\">demo</span> <span class=\"ds-status ds-status-listing\">listing</span>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-inter), Inter, system-ui, sans-serif; font-size: 13px; color: var(--muted, #6e6e80); white-space: nowrap; margin-right: 16px; } .ds-status::before { content: \"\"; width: 7px; height: 7px; border-radius: 50%; flex: none; } .ds-status-live { color: var(--ink, #0d0d0d); } .ds-status-live::before { background: var(--ink, #0d0d0d); } .ds-status-demo::before { border: 1.5px solid var(--faint, #71717f); } .ds-status-listing::before { display: none; }"
+    },
+    {
+      "name": "Type Mark",
+      "kind": "chip",
+      "refersTo": "type-mark",
+      "description": "Outlined pill naming the resource type in 11.5px mono. Full media type in the title attribute.",
+      "html": "<span class=\"ds-type\" title=\"application/mcp-server-card+json\">MCP</span> <span class=\"ds-type\" title=\"application/openapi+json\">OpenAPI</span>",
+      "css": ".ds-type { display: inline-block; font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-size: 11.5px; line-height: 1; color: var(--muted, #6e6e80); border: 1px solid var(--rule-strong, #d9d9e3); border-radius: 9999px; padding: 3px 8px; margin-right: 8px; }"
+    },
+    {
+      "name": "Command Block with Copy",
+      "kind": "button",
+      "refersTo": "button-copy",
+      "description": "A Fill block holding a mono command, with the only bordered button in the system flush right. Hover moves the button border to ink.",
+      "html": "<div class=\"ds-cmd\"><code class=\"ds-cmd-code\">claude mcp add --transport http ofa https://openfinancialagent.org/mcp</code><button class=\"ds-copy\" type=\"button\">Copy</button></div>",
+      "css": ".ds-cmd { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--fill, #f7f7f8); border-radius: 8px; padding: 8px 8px 8px 20px; min-height: 56px; max-width: 760px; } .ds-cmd-code { font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-size: 13.5px; color: var(--ink, #0d0d0d); white-space: nowrap; overflow-x: auto; padding: 8px 0; } .ds-copy { flex: none; font-family: var(--font-inter), Inter, system-ui, sans-serif; font-size: 13px; font-weight: 500; color: var(--ink, #0d0d0d); background: var(--paper, #fff); border: 1px solid var(--rule-strong, #d9d9e3); border-radius: 8px; padding: 8px 12px; cursor: pointer; transition: border-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-copy:hover { border-color: var(--ink, #0d0d0d); } .ds-copy:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "64px sticky header on paper with a hairline below: ink wordmark square with a paper ring, Inter 500 name, four Muted text links that turn ink on hover.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-brand-mark\" aria-hidden=\"true\"><span class=\"ds-brand-ring\"></span></span><span class=\"ds-brand-name\">Open Financial Agent</span></a><nav class=\"ds-nav\" aria-label=\"Main\"><a href=\"#\">Index</a><a href=\"#\">Docs</a><a href=\"#\">Publish</a><a href=\"#\">GitHub</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 32px; height: 64px; padding: 0 24px; background: var(--paper, #fff); border-bottom: 1px solid var(--rule, #ececf1); font-family: var(--font-inter), Inter, system-ui, sans-serif; } .ds-brand { display: flex; align-items: center; gap: 10px; color: var(--ink, #0d0d0d); text-decoration: none; } .ds-brand-mark { position: relative; display: inline-block; width: 18px; height: 18px; border-radius: 5px; background: var(--ink, #0d0d0d); } .ds-brand-ring { position: absolute; inset: 4px; border-radius: 50%; border: 1.5px solid var(--paper, #fff); } .ds-brand-name { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; } .ds-nav { display: flex; align-items: center; gap: 28px; font-size: 14px; } .ds-nav a { color: var(--muted, #6e6e80); text-decoration: none; transition: color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav a:hover { color: var(--ink, #0d0d0d); } .ds-nav a:focus-visible, .ds-brand:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Facet Toggle",
+      "kind": "button",
+      "refersTo": "facet-button",
+      "description": "Text button in the index rail: value left, mono count right. Pressed state is ink at 500.",
+      "html": "<div class=\"ds-facet\"><p class=\"ds-facet-label\">Sector</p><ul class=\"ds-facet-list\"><li><button type=\"button\" class=\"ds-facet-btn\" aria-pressed=\"true\"><span>insurance</span><span class=\"ds-facet-count\">11</span></button></li><li><button type=\"button\" class=\"ds-facet-btn\" aria-pressed=\"false\"><span>lending</span><span class=\"ds-facet-count\">2</span></button></li><li><button type=\"button\" class=\"ds-facet-btn\" aria-pressed=\"false\"><span>public-finance</span><span class=\"ds-facet-count\">2</span></button></li></ul></div>",
+      "css": ".ds-facet { width: 200px; font-family: var(--font-inter), Inter, system-ui, sans-serif; } .ds-facet-label { margin: 0 0 8px; font-size: 13px; font-weight: 500; color: var(--muted, #6e6e80); } .ds-facet-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; } .ds-facet-btn { width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; background: none; border: 0; font: inherit; font-size: 14px; text-align: left; color: var(--muted, #6e6e80); cursor: pointer; transition: color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-facet-btn:hover { color: var(--ink, #0d0d0d); } .ds-facet-btn[aria-pressed=\"true\"] { color: var(--ink, #0d0d0d); font-weight: 500; } .ds-facet-count { font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 12px; color: var(--faint, #71717f); } .ds-facet-btn[aria-pressed=\"true\"] .ds-facet-count { color: var(--ink, #0d0d0d); } .ds-facet-btn:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Definition Row",
+      "kind": "custom",
+      "refersTo": "code-inline",
+      "description": "Entry-page field: Label term in a 180px column, Ink Soft value, hairline below. Machine values in mono; capability chips in Fill at 6px.",
+      "html": "<dl class=\"ds-dl\"><div class=\"ds-dl-row\"><dt class=\"ds-dl-term\">Type</dt><dd class=\"ds-dl-val\"><span class=\"ds-mono\">application/mcp-server-card+json</span></dd></div><div class=\"ds-dl-row\"><dt class=\"ds-dl-term\">Capabilities</dt><dd class=\"ds-dl-val\"><span class=\"ds-chip\">quote_pet_insurance</span> <span class=\"ds-chip\">faq</span></dd></div><div class=\"ds-dl-row\"><dt class=\"ds-dl-term\">URL</dt><dd class=\"ds-dl-val\"><a class=\"ds-link ds-mono\" href=\"#\">https://lassie.vercel.app/mcp</a></dd></div></dl>",
+      "css": ".ds-dl { margin: 0; border-top: 1px solid var(--rule, #ececf1); font-family: var(--font-inter), Inter, system-ui, sans-serif; max-width: 820px; } .ds-dl-row { display: grid; grid-template-columns: 180px 1fr; column-gap: 24px; padding: 12px 0; border-bottom: 1px solid var(--rule, #ececf1); } .ds-dl-term { font-size: 13px; font-weight: 500; color: var(--muted, #6e6e80); padding-top: 2px; } .ds-dl-val { margin: 0; font-size: 15px; color: var(--ink-soft, #2f2f36); min-width: 0; overflow-wrap: anywhere; } .ds-mono { font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; font-size: 13px; } .ds-chip { display: inline-block; font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace; font-size: 12px; background: var(--fill, #f7f7f8); border-radius: 6px; padding: 2px 8px; margin: 0 6px 6px 0; } .ds-link { color: var(--ink, #0d0d0d); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; text-decoration-color: var(--rule-strong, #d9d9e3); transition: text-decoration-color 150ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { text-decoration-color: var(--ink, #0d0d0d); } .ds-link:focus-visible { outline: 2px solid var(--ink, #0d0d0d); outline-offset: 3px; border-radius: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Register",
+    "overview": "Open Financial Agent is a registry, not a marketplace, and it looks like one: a public register read on white paper. Every screen is ink on white with a small family of greys doing the secondary work. The register does not sell. It lists, it ranks, and it points to the provider. The visual system takes that stance literally: one field to ask, ruled rows to answer, and marks drawn in ink where another product would reach for colour.\n\nThe mood is spare, exact, quiet and trustworthy. Density comes from typography and hairlines rather than from boxes. A row is a row because a 1px rule sits under it. A panel is a panel because its ground is two shades off white. Type carries hierarchy on its own: Inter at three weights for reading, Geist Mono at small sizes for anything the machine owns (identifiers, media types, commands, counts and scores). The quality bar the founder pinned is openai.com and platform.openai.com, played straight with no concept roll.\n\nConfirmed rejections: colour as decoration, cards for everything, gradients, illustration, and dark mode. The site ships one light theme only; color-scheme: light is set on the root and no dark palette exists.",
+    "keyCharacteristics": [
+      "One white ground, ink text, five greys. No hue anywhere, including status.",
+      "Status is drawn: a filled dot means live, a ring means demo, a bare word means listing.",
+      "Hairlines do the structural work; a surface is a 1px rule or a faint fill, never both, and never a shadow.",
+      "Inter 400/500/600 for reading, Geist Mono with tabular figures for identifiers and numbers.",
+      "One authored motion: rows rise 6px into place as a query resolves. Everything else is a 150ms colour change."
+    ],
+    "rules": [
+      { "name": "The No Hue Rule", "body": "Nothing on any surface carries chroma. Status, emphasis, links, focus and selection are all expressed in ink or grey. There is no status green, no link blue, no error red.", "section": "colors" },
+      { "name": "The Drawn Status Rule", "body": "Status is a 7px mark in ink, never a coloured chip: a filled dot (live, text in ink), a 1.5px ring in Faint (demo, text in Muted), or no mark at all (listing, the word alone).", "section": "colors" },
+      { "name": "The One Ink Rule", "body": "In a ranked list, only the lead row's score is ink; the rest are Faint. Emphasis is scarce so that it means something.", "section": "colors" },
+      { "name": "The Machine Voice Rule", "body": "Geist Mono is reserved for what a machine emitted or will consume: identifiers, media types, commands, counts and scores. A sentence never sets in mono, and a domain never sets in Inter.", "section": "typography" },
+      { "name": "The Three Weights Rule", "body": "Only 400, 500 and 600 are loaded. Emphasis moves one step, never two: a nav link at rest is 400 Muted, active is 500 Ink.", "section": "typography" },
+      { "name": "The Hairline or Nothing Rule", "body": "A surface gets a border or a fill, never both, and never a shadow. If a border and a fill both seem necessary, the surface is wrong.", "section": "elevation" },
+      { "name": "The Ink Focus Rule", "body": "Focus is a 2px ink outline offset 3px with a 4px radius, on links, buttons, inputs and summaries alike. Selection inverts to ink on paper. The caret is ink.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do set every surface on Paper and every word in Ink or one of the five greys. When a thing needs emphasis, make it ink.",
+      "Do draw status with the three ink marks (filled dot for live, Faint ring for demo, bare word for listing) at 7px with a 7px gap.",
+      "Do separate content with a 1px Rule hairline and full-width ruled rows; reach for a Fill tint only when the content is a machine surface (a command, JSON, code).",
+      "Do set identifiers, domains, media types, commands, counts and scores in Geist Mono with tabular figures, at 12px to 13.5px.",
+      "Do keep radii at 8px or under, with 12px reserved for the search field and full-round for the type mark and status dot.",
+      "Do animate list arrival with .rise (6px, 560ms, cubic-bezier(0.16, 1, 0.3, 1), 45ms stagger) and every other state change as a 150ms colour transition.",
+      "Do write \"Relevance 0–100 is not a measure of trust\" wherever a score is shown.",
+      "Do honour prefers-reduced-motion: reduce: no rise, no caret, no demo typing, and rows shown at rest."
+    ],
+    "donts": [
+      "Don't introduce colour anywhere, including status, links, focus, charts or error states. The world is monochrome by the founder's decision.",
+      "Don't add a dark theme or a theme toggle. The single light theme is the system.",
+      "Don't put content in cards. Rows with hairlines, or a Fill panel for machine output, are the only containers.",
+      "Don't use shadows, gradients or illustration. Depth is a hairline or a tint.",
+      "Don't give a surface both a border and a fill.",
+      "Don't set prose in mono or a domain in Inter.",
+      "Don't load Inter weights beyond 400, 500 and 600, or uppercase and track a label.",
+      "Don't show a hero metric, a stats block or a feature-card triptych. The ranked answer is the hero."
+    ]
+  }
+}
